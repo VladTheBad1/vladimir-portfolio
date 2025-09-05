@@ -124,9 +124,9 @@ export default function AILabPage() {
   return (
     <>
       <Navigation />
-      <main className="min-h-screen pt-24">
+      <main className="min-h-screen pt-24 bg-white">
         {/* Hero Section */}
-        <div className="section-container py-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-20">
           <div className="text-center max-w-4xl mx-auto">
             <Badge variant="primary" className="mb-4">
               <Sparkles className="h-3 w-3 mr-1" />
@@ -141,22 +141,22 @@ export default function AILabPage() {
             
             {/* Key Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
-              <Card variant="default" className="bg-dark-800/30">
+              <Card variant="default" hover={false}>
                 <CardContent className="p-6">
-                  <div className="text-3xl font-bold text-primary-400 mb-2">365</div>
-                  <Text className="text-sm text-gray-400">Companies Per Year</Text>
+                  <div className="text-3xl font-bold text-gray-900 mb-2">365</div>
+                  <Text className="text-sm text-gray-600">Companies Per Year</Text>
                 </CardContent>
               </Card>
-              <Card variant="default" className="bg-dark-800/30">
+              <Card variant="default" hover={false}>
                 <CardContent className="p-6">
-                  <div className="text-3xl font-bold text-primary-400 mb-2">40min</div>
-                  <Text className="text-sm text-gray-400">Concept to Blueprint</Text>
+                  <div className="text-3xl font-bold text-gray-900 mb-2">40min</div>
+                  <Text className="text-sm text-gray-600">Concept to Blueprint</Text>
                 </CardContent>
               </Card>
-              <Card variant="default" className="bg-dark-800/30">
+              <Card variant="default" hover={false}>
                 <CardContent className="p-6">
-                  <div className="text-3xl font-bold text-primary-400 mb-2">87%</div>
-                  <Text className="text-sm text-gray-400">Market Validation Rate</Text>
+                  <div className="text-3xl font-bold text-gray-900 mb-2">87%</div>
+                  <Text className="text-sm text-gray-600">Market Validation Rate</Text>
                 </CardContent>
               </Card>
             </div>
@@ -164,10 +164,10 @@ export default function AILabPage() {
         </div>
 
         {/* Generation Interface */}
-        <div className="section-container pb-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pb-20">
           <div className="max-w-6xl mx-auto">
             {!generatedVenture ? (
-              <Card variant="default" className="bg-dark-800/30 border-dark-700">
+              <Card variant="default" hover={false}>
                 <CardHeader className="text-center pb-8">
                   <CardTitle className="text-2xl mb-2">Generate Your Next Venture</CardTitle>
                   <CardDescription>
@@ -177,7 +177,7 @@ export default function AILabPage() {
                 <CardContent className="space-y-8">
                   {/* Industry Selection */}
                   <div>
-                    <label className="text-sm font-medium text-gray-400 mb-3 block">
+                    <label className="text-sm font-medium text-gray-700 mb-3 block">
                       Choose Industry (Optional)
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -186,10 +186,10 @@ export default function AILabPage() {
                           key={industry}
                           onClick={() => setSelectedIndustry(industry === selectedIndustry ? '' : industry)}
                           className={cn(
-                            "px-4 py-2 rounded-lg border transition-all",
+                            "px-4 py-2 rounded-lg border border-transparent transition-all",
                             selectedIndustry === industry
-                              ? "bg-primary-500 text-dark-900 border-primary-500"
-                              : "bg-dark-700/50 text-gray-400 border-dark-600 hover:border-dark-500"
+                              ? "bg-primary-500 text-white border-primary-500"
+                              : "bg-gray-100 text-gray-700 hover:border-gray-600"
                           )}
                         >
                           {industry}
@@ -202,7 +202,7 @@ export default function AILabPage() {
                   {isGenerating && (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between mb-2">
-                        <Text className="text-sm text-gray-400">Generation Progress</Text>
+                        <Text className="text-sm text-gray-600">Generation Progress</Text>
                         <Badge variant="outline" className="text-xs">
                           <Timer className="h-3 w-3 mr-1" />
                           Est. 40 min
@@ -219,27 +219,27 @@ export default function AILabPage() {
                               key={phase.id}
                               className={cn(
                                 "flex items-center gap-4 p-4 rounded-lg border transition-all",
-                                isActive ? "bg-primary-500/10 border-primary-500/30" : 
-                                isComplete ? "bg-dark-700/30 border-dark-600" :
-                                "bg-dark-800/50 border-dark-700"
+                                isActive ? "bg-gray-50 border-gray-200" : 
+                                isComplete ? "bg-gray-50 border-gray-300" :
+                                "bg-white/50 border-gray-200"
                               )}
                             >
                               <div className={cn(
                                 "w-10 h-10 rounded-full flex items-center justify-center",
-                                isActive ? "bg-primary-500 text-dark-900" :
-                                isComplete ? "bg-green-500 text-dark-900" :
-                                "bg-dark-700 text-gray-500"
+                                isActive ? "bg-primary-500 text-white" :
+                                isComplete ? "bg-green-500 text-white" :
+                                "bg-gray-200 text-gray-600"
                               )}>
                                 <Icon className="h-5 w-5" />
                               </div>
                               <div className="flex-1">
-                                <div className="font-medium text-gray-200">{phase.label}</div>
-                                <div className="text-xs text-gray-500">{phase.duration}</div>
+                                <div className="font-medium text-gray-900">{phase.label}</div>
+                                <div className="text-xs text-gray-600">{phase.duration}</div>
                               </div>
                               {isActive && (
                                 <div className="flex items-center gap-2">
-                                  <RefreshCw className="h-4 w-4 text-primary-400 animate-spin" />
-                                  <span className="text-xs text-primary-400">Processing...</span>
+                                  <RefreshCw className="h-4 w-4 text-gray-700 animate-spin" />
+                                  <span className="text-xs text-gray-700">Processing...</span>
                                 </div>
                               )}
                               {isComplete && (
@@ -258,7 +258,7 @@ export default function AILabPage() {
                       size="lg"
                       onClick={generateVenture}
                       disabled={isGenerating}
-                      className="min-w-[200px]"
+                      className="min-w-[280px] px-8 bg-black text-white hover:bg-gray-800 active:bg-gray-900 font-bold shadow-lg hover:shadow-xl transition-all"
                     >
                       {isGenerating ? (
                         <>
@@ -266,13 +266,10 @@ export default function AILabPage() {
                           Generating Venture...
                         </>
                       ) : (
-                        <>
-                          <Zap className="h-5 w-5 mr-2" />
-                          Generate Venture
-                        </>
+                        'Generate Venture'
                       )}
                     </Button>
-                    <Text className="text-xs text-gray-500 mt-3">
+                    <Text className="text-xs text-gray-600 mt-3">
                       Powered by GPT-4 and proprietary market analysis
                     </Text>
                   </div>
@@ -281,7 +278,7 @@ export default function AILabPage() {
             ) : (
               /* Generated Venture Display */
               <div className="space-y-8">
-                <Card variant="venture" className="border-primary-500/30">
+                <Card variant="venture">
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div>
@@ -309,44 +306,44 @@ export default function AILabPage() {
                     {/* Problem & Solution */}
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <h3 className="text-sm font-medium text-primary-400 mb-2 flex items-center gap-2">
+                        <h3 className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                           <Target className="h-4 w-4" />
                           Problem
                         </h3>
-                        <Text className="text-gray-300">{generatedVenture.problem}</Text>
+                        <Text className="text-gray-700">{generatedVenture.problem}</Text>
                       </div>
                       <div>
-                        <h3 className="text-sm font-medium text-primary-400 mb-2 flex items-center gap-2">
+                        <h3 className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                           <Lightbulb className="h-4 w-4" />
                           Solution
                         </h3>
-                        <Text className="text-gray-300">{generatedVenture.solution}</Text>
+                        <Text className="text-gray-700">{generatedVenture.solution}</Text>
                       </div>
                     </div>
 
                     {/* Market Info */}
                     <div className="grid md:grid-cols-3 gap-6">
                       <div>
-                        <h3 className="text-sm font-medium text-gray-400 mb-2">Target Market</h3>
-                        <Text className="text-gray-300">{generatedVenture.targetMarket}</Text>
+                        <h3 className="text-sm font-medium text-gray-700 mb-2">Target Market</h3>
+                        <Text className="text-gray-700">{generatedVenture.targetMarket}</Text>
                       </div>
                       <div>
-                        <h3 className="text-sm font-medium text-gray-400 mb-2">Market Size</h3>
-                        <Text className="text-gray-300">{generatedVenture.marketSize}</Text>
+                        <h3 className="text-sm font-medium text-gray-700 mb-2">Market Size</h3>
+                        <Text className="text-gray-700">{generatedVenture.marketSize}</Text>
                       </div>
                       <div>
-                        <h3 className="text-sm font-medium text-gray-400 mb-2">Time to Market</h3>
-                        <Text className="text-gray-300">{generatedVenture.timeToMarket}</Text>
+                        <h3 className="text-sm font-medium text-gray-700 mb-2">Time to Market</h3>
+                        <Text className="text-gray-700">{generatedVenture.timeToMarket}</Text>
                       </div>
                     </div>
 
                     {/* Business Model */}
                     <div>
-                      <h3 className="text-sm font-medium text-primary-400 mb-2 flex items-center gap-2">
+                      <h3 className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                         <DollarSign className="h-4 w-4" />
                         Business Model
                       </h3>
-                      <Text className="text-gray-300">{generatedVenture.businessModel}</Text>
+                      <Text className="text-gray-700">{generatedVenture.businessModel}</Text>
                       <Badge variant="outline" className="mt-2">
                         {generatedVenture.estimatedRevenue}
                       </Badge>
@@ -354,24 +351,24 @@ export default function AILabPage() {
 
                     {/* Competitive Advantage */}
                     <div>
-                      <h3 className="text-sm font-medium text-primary-400 mb-2 flex items-center gap-2">
+                      <h3 className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                         <Shield className="h-4 w-4" />
                         Competitive Advantage
                       </h3>
-                      <Text className="text-gray-300">{generatedVenture.competitiveAdvantage}</Text>
+                      <Text className="text-gray-700">{generatedVenture.competitiveAdvantage}</Text>
                     </div>
 
                     {/* MVP Features */}
                     <div>
-                      <h3 className="text-sm font-medium text-primary-400 mb-3 flex items-center gap-2">
+                      <h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
                         <Rocket className="h-4 w-4" />
                         MVP Features
                       </h3>
                       <div className="grid sm:grid-cols-2 gap-2">
                         {generatedVenture.mvpFeatures.map((feature, index) => (
                           <div key={index} className="flex items-center gap-2">
-                            <ChevronRight className="h-4 w-4 text-primary-400" />
-                            <Text className="text-gray-300">{feature}</Text>
+                            <ChevronRight className="h-4 w-4 text-gray-700" />
+                            <Text className="text-gray-700">{feature}</Text>
                           </div>
                         ))}
                       </div>
@@ -379,7 +376,7 @@ export default function AILabPage() {
 
                     {/* Team Needed */}
                     <div>
-                      <h3 className="text-sm font-medium text-primary-400 mb-3 flex items-center gap-2">
+                      <h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
                         <Users className="h-4 w-4" />
                         Team Requirements
                       </h3>
@@ -393,7 +390,7 @@ export default function AILabPage() {
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-dark-700">
+                    <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
                       <Button size="lg" className="flex-1">
                         <Rocket className="h-5 w-5 mr-2" />
                         Start Building This Venture
@@ -407,7 +404,7 @@ export default function AILabPage() {
                 </Card>
 
                 {/* Process Overview */}
-                <Card variant="default" className="bg-dark-800/30">
+                <Card variant="default" hover={false}>
                   <CardHeader>
                     <CardTitle className="text-xl">The AI Generation Process</CardTitle>
                   </CardHeader>
@@ -422,11 +419,11 @@ export default function AILabPage() {
                         const Icon = step.icon
                         return (
                           <div key={index} className="text-center">
-                            <div className="w-12 h-12 rounded-full bg-primary-500/20 text-primary-400 flex items-center justify-center mx-auto mb-3">
+                            <div className="w-12 h-12 rounded-full bg-primary-500/20 text-gray-700 flex items-center justify-center mx-auto mb-3">
                               <Icon className="h-6 w-6" />
                             </div>
-                            <h4 className="font-medium text-gray-200 mb-1">{step.title}</h4>
-                            <Text className="text-xs text-gray-500">{step.desc}</Text>
+                            <h4 className="font-medium text-gray-900 mb-1">{step.title}</h4>
+                            <Text className="text-xs text-gray-600">{step.desc}</Text>
                           </div>
                         )
                       })}

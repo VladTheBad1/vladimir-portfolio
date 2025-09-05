@@ -153,23 +153,23 @@ export default function GlobalIntelligencePage() {
       case 'low': return 'text-green-400 bg-green-500/20'
       case 'medium': return 'text-yellow-400 bg-yellow-500/20'
       case 'high': return 'text-red-400 bg-red-500/20'
-      default: return 'text-gray-400 bg-gray-500/20'
+      default: return 'text-gray-700 bg-gray-500/20'
     }
   }
 
   const getGrowthIcon = (growth: number) => {
     if (growth > 25) return <ArrowUpRight className="h-4 w-4 text-green-400" />
     if (growth > 15) return <ArrowUpRight className="h-4 w-4 text-yellow-400" />
-    if (growth > 0) return <ArrowUpRight className="h-4 w-4 text-gray-400" />
-    return <Minus className="h-4 w-4 text-gray-400" />
+    if (growth > 0) return <ArrowUpRight className="h-4 w-4 text-gray-700" />
+    return <Minus className="h-4 w-4 text-gray-700" />
   }
 
   return (
     <>
       <Navigation />
-      <main className="min-h-screen pt-24">
+      <main className="min-h-screen pt-24 bg-white">
         {/* Hero Section */}
-        <div className="section-container py-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-20">
           <div className="text-center max-w-4xl mx-auto">
             <Badge variant="primary" className="mb-4">
               <Globe className="h-3 w-3 mr-1" />
@@ -184,28 +184,28 @@ export default function GlobalIntelligencePage() {
             
             {/* Key Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-12">
-              <Card variant="default" className="bg-dark-800/30">
+              <Card variant="default" hover={false}>
                 <CardContent className="p-6">
-                  <div className="text-2xl font-bold text-primary-400 mb-1">195</div>
-                  <Text className="text-xs text-gray-400">Countries Tracked</Text>
+                  <div className="text-2xl font-bold text-gray-900 mb-1">195</div>
+                  <Text className="text-xs text-gray-600">Countries Tracked</Text>
                 </CardContent>
               </Card>
-              <Card variant="default" className="bg-dark-800/30">
+              <Card variant="default" hover={false}>
                 <CardContent className="p-6">
-                  <div className="text-2xl font-bold text-primary-400 mb-1">$2.3T</div>
-                  <Text className="text-xs text-gray-400">Total Market Size</Text>
+                  <div className="text-2xl font-bold text-gray-900 mb-1">$2.3T</div>
+                  <Text className="text-xs text-gray-600">Total Market Size</Text>
                 </CardContent>
               </Card>
-              <Card variant="default" className="bg-dark-800/30">
+              <Card variant="default" hover={false}>
                 <CardContent className="p-6">
-                  <div className="text-2xl font-bold text-primary-400 mb-1">847</div>
-                  <Text className="text-xs text-gray-400">Opportunities</Text>
+                  <div className="text-2xl font-bold text-gray-900 mb-1">847</div>
+                  <Text className="text-xs text-gray-600">Opportunities</Text>
                 </CardContent>
               </Card>
-              <Card variant="default" className="bg-dark-800/30">
+              <Card variant="default" hover={false}>
                 <CardContent className="p-6">
-                  <div className="text-2xl font-bold text-primary-400 mb-1">24/7</div>
-                  <Text className="text-xs text-gray-400">Live Updates</Text>
+                  <div className="text-2xl font-bold text-gray-900 mb-1">24/7</div>
+                  <Text className="text-xs text-gray-600">Live Updates</Text>
                 </CardContent>
               </Card>
             </div>
@@ -213,18 +213,18 @@ export default function GlobalIntelligencePage() {
         </div>
 
         {/* Filters and Map */}
-        <div className="section-container pb-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pb-20">
           <div className="max-w-7xl mx-auto">
             {/* Filters */}
             <div className="mb-8 space-y-4">
               <div className="flex flex-col lg:flex-row gap-4">
                 {/* Region Filter */}
                 <div className="flex-1">
-                  <label className="text-sm font-medium text-gray-400 mb-2 block">Filter by Region</label>
+                  <label className="text-sm font-medium text-gray-700 mb-2 block">Filter by Region</label>
                   <select
                     value={selectedRegion}
                     onChange={(e) => setSelectedRegion(e.target.value as RegionFilter)}
-                    className="w-full px-4 py-2 bg-dark-800/50 border border-dark-700 rounded-lg text-gray-100 focus:outline-none focus:border-primary-500"
+                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:border-gray-500"
                   >
                     <option value="all">All Regions</option>
                     <option value="North America">North America</option>
@@ -238,11 +238,11 @@ export default function GlobalIntelligencePage() {
 
                 {/* Sector Filter */}
                 <div className="flex-1">
-                  <label className="text-sm font-medium text-gray-400 mb-2 block">Filter by Sector</label>
+                  <label className="text-sm font-medium text-gray-700 mb-2 block">Filter by Sector</label>
                   <select
                     value={selectedSector}
                     onChange={(e) => setSelectedSector(e.target.value as SectorFilter)}
-                    className="w-full px-4 py-2 bg-dark-800/50 border border-dark-700 rounded-lg text-gray-100 focus:outline-none focus:border-primary-500"
+                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:border-gray-500"
                   >
                     <option value="all">All Sectors</option>
                     <option value="HealthTech">HealthTech</option>
@@ -256,10 +256,10 @@ export default function GlobalIntelligencePage() {
 
                 {/* Live Status */}
                 <div className="flex items-end">
-                  <Card variant="default" className="bg-dark-800/30 px-4 py-2">
+                  <Card variant="default" className="px-4 py-2" hover={false}>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                      <Text className="text-xs text-gray-400">Live Updates Active</Text>
+                      <Text className="text-xs text-gray-600">Live Updates Active</Text>
                     </div>
                   </Card>
                 </div>
@@ -272,7 +272,7 @@ export default function GlobalIntelligencePage() {
                 <Card 
                   key={opp.id}
                   variant="default" 
-                  className="bg-dark-800/30 hover:bg-dark-800/50 transition-all cursor-pointer"
+                  className="hover:bg-white transition-all cursor-pointer"
                   onClick={() => setSelectedOpportunity(opp)}
                 >
                   <CardHeader>
@@ -292,13 +292,13 @@ export default function GlobalIntelligencePage() {
                     {/* Market Size & Growth */}
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <Text className="text-xs text-gray-500 mb-1">Market Size</Text>
-                        <div className="text-lg font-semibold text-gray-200">{opp.marketSize}</div>
+                        <Text className="text-xs text-gray-600 mb-1">Market Size</Text>
+                        <div className="text-lg font-semibold text-gray-900">{opp.marketSize}</div>
                       </div>
                       <div>
-                        <Text className="text-xs text-gray-500 mb-1">YoY Growth</Text>
+                        <Text className="text-xs text-gray-600 mb-1">YoY Growth</Text>
                         <div className="flex items-center gap-1">
-                          <span className="text-lg font-semibold text-gray-200">{opp.growth}%</span>
+                          <span className="text-lg font-semibold text-gray-900">{opp.growth}%</span>
                           {getGrowthIcon(opp.growth)}
                         </div>
                       </div>
@@ -306,11 +306,11 @@ export default function GlobalIntelligencePage() {
 
                     {/* Quick Stats */}
                     <div className="flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-1 text-gray-400">
+                      <div className="flex items-center gap-1 text-gray-700">
                         <Clock className="h-3 w-3" />
                         <span>{opp.timeToMarket}</span>
                       </div>
-                      <div className="flex items-center gap-1 text-gray-400">
+                      <div className="flex items-center gap-1 text-gray-700">
                         <Shield className="h-3 w-3" />
                         <span>{opp.entryBarrier} barrier</span>
                       </div>
@@ -318,10 +318,10 @@ export default function GlobalIntelligencePage() {
 
                     {/* Top Trends */}
                     <div>
-                      <Text className="text-xs text-gray-500 mb-2">Trending</Text>
+                      <Text className="text-xs text-gray-600 mb-2">Trending</Text>
                       <div className="flex flex-wrap gap-1">
                         {opp.trends.slice(0, 2).map((trend, index) => (
-                          <span key={index} className="text-xs px-2 py-1 bg-dark-700/50 rounded text-gray-400">
+                          <span key={index} className="text-xs px-2 py-1 bg-gray-100 rounded text-gray-700">
                             {trend}
                           </span>
                         ))}
@@ -342,7 +342,7 @@ export default function GlobalIntelligencePage() {
               <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-900/80 backdrop-blur-sm" onClick={() => setSelectedOpportunity(null)}>
                 <Card 
                   variant="default" 
-                  className="bg-dark-800 max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+                  className="bg-white shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <CardHeader>
@@ -357,7 +357,7 @@ export default function GlobalIntelligencePage() {
                       </div>
                       <button 
                         onClick={() => setSelectedOpportunity(null)}
-                        className="text-gray-400 hover:text-gray-200"
+                        className="text-gray-700 hover:text-gray-900"
                       >
                         <X className="h-6 w-6" />
                       </button>
@@ -366,39 +366,39 @@ export default function GlobalIntelligencePage() {
                   <CardContent className="space-y-6">
                     {/* Key Metrics */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      <div className="bg-dark-700/30 rounded-lg p-4">
+                      <div className="bg-gray-50 rounded-lg p-4">
                         <div className="flex items-center gap-2 mb-2">
-                          <DollarSign className="h-4 w-4 text-primary-400" />
-                          <Text className="text-xs text-gray-400">Market Size</Text>
+                          <DollarSign className="h-4 w-4 text-gray-700" />
+                          <Text className="text-xs text-gray-600">Market Size</Text>
                         </div>
-                        <div className="text-xl font-semibold text-gray-100">{selectedOpportunity.marketSize}</div>
+                        <div className="text-xl font-semibold text-gray-900">{selectedOpportunity.marketSize}</div>
                       </div>
-                      <div className="bg-dark-700/30 rounded-lg p-4">
+                      <div className="bg-gray-50 rounded-lg p-4">
                         <div className="flex items-center gap-2 mb-2">
                           <TrendingUp className="h-4 w-4 text-green-400" />
-                          <Text className="text-xs text-gray-400">Growth Rate</Text>
+                          <Text className="text-xs text-gray-600">Growth Rate</Text>
                         </div>
-                        <div className="text-xl font-semibold text-gray-100">{selectedOpportunity.growth}%</div>
+                        <div className="text-xl font-semibold text-gray-900">{selectedOpportunity.growth}%</div>
                       </div>
-                      <div className="bg-dark-700/30 rounded-lg p-4">
+                      <div className="bg-gray-50 rounded-lg p-4">
                         <div className="flex items-center gap-2 mb-2">
                           <Activity className="h-4 w-4 text-yellow-400" />
-                          <Text className="text-xs text-gray-400">Competition</Text>
+                          <Text className="text-xs text-gray-600">Competition</Text>
                         </div>
-                        <div className="text-xl font-semibold text-gray-100 capitalize">{selectedOpportunity.competition}</div>
+                        <div className="text-xl font-semibold text-gray-900 capitalize">{selectedOpportunity.competition}</div>
                       </div>
-                      <div className="bg-dark-700/30 rounded-lg p-4">
+                      <div className="bg-gray-50 rounded-lg p-4">
                         <div className="flex items-center gap-2 mb-2">
                           <Clock className="h-4 w-4 text-blue-400" />
-                          <Text className="text-xs text-gray-400">Time to Market</Text>
+                          <Text className="text-xs text-gray-600">Time to Market</Text>
                         </div>
-                        <div className="text-xl font-semibold text-gray-100">{selectedOpportunity.timeToMarket}</div>
+                        <div className="text-xl font-semibold text-gray-900">{selectedOpportunity.timeToMarket}</div>
                       </div>
                     </div>
 
                     {/* Key Players */}
                     <div>
-                      <h3 className="text-sm font-medium text-primary-400 mb-3">Key Players</h3>
+                      <h3 className="text-sm font-medium text-gray-700 mb-3">Key Players</h3>
                       <div className="flex flex-wrap gap-2">
                         {selectedOpportunity.keyPlayers.map((player) => (
                           <Badge key={player} variant="outline">{player}</Badge>
@@ -408,12 +408,12 @@ export default function GlobalIntelligencePage() {
 
                     {/* Market Trends */}
                     <div>
-                      <h3 className="text-sm font-medium text-primary-400 mb-3">Market Trends</h3>
+                      <h3 className="text-sm font-medium text-gray-700 mb-3">Market Trends</h3>
                       <div className="space-y-2">
                         {selectedOpportunity.trends.map((trend, index) => (
                           <div key={index} className="flex items-center gap-2">
                             <Zap className="h-4 w-4 text-yellow-400" />
-                            <Text className="text-gray-300">{trend}</Text>
+                            <Text className="text-gray-700">{trend}</Text>
                           </div>
                         ))}
                       </div>
@@ -421,19 +421,19 @@ export default function GlobalIntelligencePage() {
 
                     {/* Risk Factors */}
                     <div>
-                      <h3 className="text-sm font-medium text-primary-400 mb-3">Risk Factors</h3>
+                      <h3 className="text-sm font-medium text-gray-700 mb-3">Risk Factors</h3>
                       <div className="space-y-2">
                         {selectedOpportunity.risks.map((risk, index) => (
                           <div key={index} className="flex items-center gap-2">
                             <AlertCircle className="h-4 w-4 text-red-400" />
-                            <Text className="text-gray-300">{risk}</Text>
+                            <Text className="text-gray-700">{risk}</Text>
                           </div>
                         ))}
                       </div>
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex gap-4 pt-4 border-t border-dark-700">
+                    <div className="flex gap-4 pt-4 border-t border-gray-300">
                       <Button className="flex-1">
                         <Target className="h-4 w-4 mr-2" />
                         Create Venture Plan

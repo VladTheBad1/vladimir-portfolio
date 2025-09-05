@@ -1,88 +1,287 @@
 @import "tailwindcss";
+@import "../styles/design-tokens.css";
 
 @theme {
-  --color-dark-900: #0d0d0f;
-  --color-dark-800: #1a1a1e;
-  --color-dark-700: #26262d;
-  --color-dark-600: #33333c;
+  --color-dark-900: #000000;
+  --color-dark-800: #0a0a0a;
+  --color-dark-700: #111111;
+  --color-dark-600: #1a1a1a;
   
-  --color-primary-300: #f7d087;
-  --color-primary-400: #f3b74a;
-  --color-primary-500: #d4860a;
-  --color-primary-600: #a86808;
+  --color-primary-500: #000000;
+  --color-primary-400: #111111;
   
-  --color-gray-100: #f0f0f1;
-  --color-gray-200: #d9d9db;
-  --color-gray-300: #b3b3b7;
-  --color-gray-400: #8c8c93;
-  --color-gray-500: #66666f;
+  --color-gray-100: #ffffff;
+  --color-gray-200: #fafafa;
+  --color-gray-300: #f0f0f0;
+  --color-gray-400: #888888;
+  --color-gray-500: #666666;
 }
 
+/* Co-Star Inspired Clean Design System */
+
 html {
-  @apply bg-dark-900 text-gray-100;
+  @apply bg-white text-gray-800;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  @apply bg-dark-900 text-gray-100 antialiased;
+  @apply bg-white text-gray-800;
+  letter-spacing: 0;
 }
 
-/* Custom component styles */
-.gradient-text {
-  background: linear-gradient(to right, #f3b74a, #d4860a, #a86808);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Typography - Clean and Minimal */
+.text-display {
+  font-size: clamp(72px, 10vw, 120px);
+  font-weight: 200;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
 }
 
-.glass-effect {
-  background: rgba(26, 26, 30, 0.5);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(38, 38, 45, 0.5);
+.text-headline {
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1;
 }
 
-.venture-card {
-  background: rgba(26, 26, 30, 0.5);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(38, 38, 45, 0.5);
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  transition: all 0.3s;
+.text-title-lg {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
 }
 
-.venture-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0 40px rgba(212, 134, 10, 0.2);
+.text-title {
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.text-body-lg {
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+}
+
+.text-body {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.6;
+}
+
+.text-caption {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/* Minimal Card Design */
+.card-minimal {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card-minimal:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Stark Buttons */
+.btn-stark {
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  padding: 12px 32px;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.btn-stark:hover {
+  background: white;
+  color: black;
+}
+
+.btn-stark-inverted {
+  border: 1px solid white;
+  background: white;
+  color: black;
+  padding: 12px 32px;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.btn-stark-inverted:hover {
+  background: black;
+  color: white;
+}
+
+/* Minimal Links */
+.link-minimal {
+  position: relative;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.link-minimal::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: white;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.link-minimal:hover::after {
+  transform: scaleX(1);
+}
+
+/* Dividers */
+.divider-thin {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  width: 100%;
+}
+
+.divider-thick {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  width: 100%;
+}
+
+/* Container System */
+.container-narrow {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.container-wide {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 48px;
 }
 
 .section-container {
-  max-width: 80rem;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 24px;
 }
 
 @media (min-width: 640px) {
   .section-container {
-    padding: 0 1.5rem;
+    padding: 0 32px;
   }
 }
 
 @media (min-width: 1024px) {
   .section-container {
-    padding: 0 2rem;
+    padding: 0 48px;
   }
 }
 
-.animate-fade-up {
-  animation: fadeUp 0.5s ease-out;
+@media (min-width: 1280px) {
+  .section-container {
+    padding: 0 64px;
+  }
 }
 
-@keyframes fadeUp {
+/* Section Spacing */
+.section-spacing {
+  padding: 120px 0;
+}
+
+.section-spacing-sm {
+  padding: 80px 0;
+}
+
+.section-spacing-lg {
+  padding: 160px 0;
+}
+
+/* Fade In Animation */
+.fade-in {
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+  }
+}
+
+/* Stark Grid */
+.grid-minimal {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.grid-minimal > * {
+  background: black;
+  padding: 32px;
+}
+
+/* Focus States */
+.focus-minimal:focus {
+  outline: 1px solid white;
+  outline-offset: 4px;
+}
+
+/* Selection */
+::selection {
+  background: white;
+  color: black;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Media Queries for Responsive Typography */
+@media (max-width: 768px) {
+  .section-spacing {
+    padding: 80px 0;
+  }
+  
+  .section-spacing-lg {
+    padding: 100px 0;
+  }
+  
+  .container-wide {
+    padding: 0 24px;
   }
 }

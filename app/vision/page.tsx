@@ -189,21 +189,30 @@ const principles = [
 export default function VisionPage() {
   const [selectedPillar, setSelectedPillar] = useState<VisionPillar | null>(null)
 
-  const getStatusColor = (status: string) => {
+  const getStatusVariant = (status: string): "success" | "default" | "outline" => {
+    switch(status) {
+      case 'completed': return 'success'
+      case 'in-progress': return 'default'
+      case 'upcoming': return 'outline'
+      default: return 'outline'
+    }
+  }
+  
+  const getTimelineDotColor = (status: string) => {
     switch(status) {
       case 'completed': return 'text-green-400 bg-green-500/20 border-green-500/30'
-      case 'in-progress': return 'text-primary-400 bg-primary-500/20 border-primary-500/30'
-      case 'upcoming': return 'text-gray-400 bg-gray-500/20 border-gray-500/30'
-      default: return 'text-gray-400 bg-gray-500/20 border-gray-500/30'
+      case 'in-progress': return 'text-gray-700 bg-gray-100 border-gray-200'
+      case 'upcoming': return 'text-gray-700 bg-gray-500/20 border-gray-500/30'
+      default: return 'text-gray-700 bg-gray-500/20 border-gray-500/30'
     }
   }
 
   return (
     <>
       <Navigation />
-      <main className="min-h-screen pt-24">
+      <main className="min-h-screen pt-24 bg-white">
         {/* Hero Section */}
-        <div className="section-container py-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-20">
           <div className="text-center max-w-5xl mx-auto">
             <Badge variant="primary" className="mb-4">
               <TrendingUp className="h-3 w-3 mr-1" />
@@ -217,16 +226,16 @@ export default function VisionPage() {
             </Lead>
             
             {/* Vision Statement */}
-            <Card variant="default" className="bg-gradient-to-r from-primary-500/10 to-primary-600/10 border-primary-500/30 mb-12">
+            <Card variant="default" className="bg-gray-50 mb-12">
               <CardContent className="p-8">
-                <blockquote className="text-xl md:text-2xl text-gray-100 font-medium leading-relaxed">
+                <blockquote className="text-xl md:text-2xl text-gray-900 font-medium leading-relaxed">
                   &quot;By 2030, we will have created 5,000+ ventures, employing 100,000+ people, 
                   solving problems for 1 billion+ humans. This is not just a goal—it is an 
                   inevitability when you combine ADHD superpowers with AI capabilities.&quot;
                 </blockquote>
                 <div className="mt-6">
-                  <div className="text-primary-400 font-semibold">Vladimir Proskurov</div>
-                  <div className="text-sm text-gray-400">Founder & Serial Innovator</div>
+                  <div className="text-gray-700 font-semibold">Vladimir Proskurov</div>
+                  <div className="text-sm text-gray-700">Founder & Serial Innovator</div>
                 </div>
               </CardContent>
             </Card>
@@ -234,7 +243,7 @@ export default function VisionPage() {
         </div>
 
         {/* Vision Pillars */}
-        <div className="section-container pb-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pb-20">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <H2 className="mb-4">Four Pillars of Our Vision</H2>
@@ -250,12 +259,12 @@ export default function VisionPage() {
                   <Card 
                     key={index}
                     variant="default" 
-                    className="bg-dark-800/30 border-dark-700 hover:border-primary-500/30 transition-all cursor-pointer"
+                    className="transition-all cursor-pointer"
                     onClick={() => setSelectedPillar(pillar)}
                   >
                     <CardHeader>
                       <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-lg bg-primary-500/20 text-primary-400 flex items-center justify-center flex-shrink-0">
+                        <div className="w-12 h-12 rounded-lg bg-gray-100 text-gray-700 flex items-center justify-center flex-shrink-0">
                           <Icon className="h-6 w-6" />
                         </div>
                         <div className="flex-1">
@@ -266,18 +275,18 @@ export default function VisionPage() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Text className="text-xs text-gray-500 mb-2">Key Goals</Text>
+                        <Text className="text-xs text-gray-600 mb-2">Key Goals</Text>
                         <div className="space-y-1">
                           {pillar.goals.slice(0, 2).map((goal, idx) => (
                             <div key={idx} className="flex items-center gap-2">
                               <CheckCircle className="h-3 w-3 text-green-400" />
-                              <Text className="text-sm text-gray-300">{goal}</Text>
+                              <Text className="text-sm text-gray-700">{goal}</Text>
                             </div>
                           ))}
                         </div>
                       </div>
-                      <div className="pt-2 border-t border-dark-700/50">
-                        <Text className="text-xs text-primary-400">{pillar.impact}</Text>
+                      <div className="pt-2 border-t border-gray-200/50">
+                        <Text className="text-xs text-gray-700">{pillar.impact}</Text>
                       </div>
                     </CardContent>
                   </Card>
@@ -288,7 +297,7 @@ export default function VisionPage() {
         </div>
 
         {/* Strategic Roadmap */}
-        <div className="section-container pb-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pb-20">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <H2 className="mb-4">Strategic Roadmap</H2>
@@ -310,13 +319,13 @@ export default function VisionPage() {
                       {/* Timeline Dot */}
                       <div className={cn(
                         "w-16 h-16 rounded-full flex items-center justify-center flex-shrink-0 border-2",
-                        getStatusColor(milestone.status)
+                        getTimelineDotColor(milestone.status)
                       )}>
                         <Icon className="h-8 w-8" />
                       </div>
                       
                       {/* Content */}
-                      <Card variant="default" className="flex-1 bg-dark-800/30 border-dark-700">
+                      <Card variant="default" className="flex-1">
                         <CardHeader>
                           <div className="flex items-start justify-between">
                             <div>
@@ -325,7 +334,7 @@ export default function VisionPage() {
                                   <Calendar className="h-3 w-3 mr-1" />
                                   {milestone.year} {milestone.quarter && `• ${milestone.quarter}`}
                                 </Badge>
-                                <Badge className={cn("text-xs", getStatusColor(milestone.status))}>
+                                <Badge variant={getStatusVariant(milestone.status)} className="text-xs">
                                   {milestone.status.replace('-', ' ')}
                                 </Badge>
                               </div>
@@ -339,8 +348,8 @@ export default function VisionPage() {
                             <div className="flex flex-wrap gap-3">
                               {milestone.metrics.map((metric, idx) => (
                                 <div key={idx} className="flex items-center gap-2">
-                                  <Target className="h-3 w-3 text-primary-400" />
-                                  <Text className="text-sm text-gray-300">{metric}</Text>
+                                  <Target className="h-3 w-3 text-gray-700" />
+                                  <Text className="text-sm text-gray-700">{metric}</Text>
                                 </div>
                               ))}
                             </div>
@@ -356,7 +365,7 @@ export default function VisionPage() {
         </div>
 
         {/* Operating Principles */}
-        <div className="section-container pb-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pb-20">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <H2 className="mb-4">Operating Principles</H2>
@@ -369,15 +378,15 @@ export default function VisionPage() {
               {principles.map((principle, index) => {
                 const Icon = principle.icon
                 return (
-                  <Card key={index} variant="default" className="bg-dark-800/30 border-dark-700">
+                  <Card key={index} variant="default">
                     <CardContent className="p-6">
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-primary-500/20 text-primary-400 flex items-center justify-center flex-shrink-0">
+                        <div className="w-10 h-10 rounded-lg bg-gray-100 text-gray-700 flex items-center justify-center flex-shrink-0">
                           <Icon className="h-5 w-5" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-gray-100 mb-2">{principle.title}</h3>
-                          <Text className="text-sm text-gray-400">{principle.description}</Text>
+                          <h3 className="font-semibold text-gray-900 mb-2">{principle.title}</h3>
+                          <Text className="text-sm text-gray-700">{principle.description}</Text>
                         </div>
                       </div>
                     </CardContent>
@@ -389,8 +398,8 @@ export default function VisionPage() {
         </div>
 
         {/* Call to Action */}
-        <div className="section-container pb-20">
-          <Card variant="default" className="bg-gradient-to-r from-primary-500/10 to-primary-600/10 border-primary-500/30">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pb-20">
+          <Card variant="default" className="bg-gray-50">
             <CardContent className="p-12 text-center">
               <Badge variant="primary" className="mb-4">
                 <Rocket className="h-3 w-3 mr-1" />
@@ -412,7 +421,7 @@ export default function VisionPage() {
                 </Button>
               </div>
               <div className="mt-8 pt-8 border-t border-primary-500/20">
-                <Text className="text-sm text-gray-400">
+                <Text className="text-sm text-gray-700">
                   &quot;The best way to predict the future is to invent it.&quot; — Alan Kay
                 </Text>
               </div>
@@ -423,18 +432,18 @@ export default function VisionPage() {
         {/* Pillar Detail Modal */}
         {selectedPillar && (
           <div 
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-900/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/80 backdrop-blur-sm"
             onClick={() => setSelectedPillar(null)}
           >
             <Card 
               variant="default" 
-              className="bg-dark-800 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-white max-w-2xl w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-primary-500/20 text-primary-400 flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 rounded-lg bg-gray-100 text-gray-700 flex items-center justify-center flex-shrink-0">
                       <selectedPillar.icon className="h-6 w-6" />
                     </div>
                     <div>
@@ -442,37 +451,39 @@ export default function VisionPage() {
                       <CardDescription className="text-base">{selectedPillar.description}</CardDescription>
                     </div>
                   </div>
-                  <button 
+                  <Button 
                     onClick={() => setSelectedPillar(null)}
-                    className="text-gray-400 hover:text-gray-200"
+                    variant="ghost"
+                    size="icon"
+                    className="text-gray-700 hover:text-gray-900"
                   >
                     <X className="h-6 w-6" />
-                  </button>
+                  </Button>
                 </div>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
-                  <h3 className="text-sm font-medium text-primary-400 mb-3">Strategic Goals</h3>
+                  <h3 className="text-sm font-medium text-gray-700 mb-3">Strategic Goals</h3>
                   <div className="space-y-2">
                     {selectedPillar.goals.map((goal, index) => (
                       <div key={index} className="flex items-center gap-3">
                         <CheckCircle className="h-4 w-4 text-green-400" />
-                        <Text className="text-gray-300">{goal}</Text>
+                        <Text className="text-gray-700">{goal}</Text>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-medium text-primary-400 mb-3">Expected Impact</h3>
-                  <Card variant="default" className="bg-dark-700/30 border-dark-600">
+                  <h3 className="text-sm font-medium text-gray-700 mb-3">Expected Impact</h3>
+                  <Card variant="default" className="bg-gray-50">
                     <CardContent className="p-4">
-                      <Text className="text-gray-300">{selectedPillar.impact}</Text>
+                      <Text className="text-gray-700">{selectedPillar.impact}</Text>
                     </CardContent>
                   </Card>
                 </div>
 
-                <div className="flex gap-4 pt-4 border-t border-dark-700">
+                <div className="flex gap-4 pt-4 border-t border-gray-200">
                   <Button className="flex-1">
                     <Lightbulb className="h-4 w-4 mr-2" />
                     Learn More

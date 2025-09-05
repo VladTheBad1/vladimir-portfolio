@@ -90,8 +90,8 @@ export default function PortfolioPage() {
   return (
     <>
       <Navigation />
-      <main className="min-h-screen pt-24">
-        <div className="section-container py-12">
+      <main className="min-h-screen pt-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-12">
           {/* Header */}
           <div className="text-center mb-12">
             <H1 gradient className="mb-4">Venture Portfolio</H1>
@@ -105,13 +105,13 @@ export default function PortfolioPage() {
             <div className="flex flex-col lg:flex-row gap-4">
               {/* Search Bar */}
               <div className="flex-1 relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-600" />
                 <input
                   type="text"
                   placeholder="Search ventures..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-dark-800/50 border border-dark-700 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors"
+                  className="w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-gray-900 placeholder-gray-600 focus:outline-none focus:border-gray-500 transition-colors shadow-sm"
                 />
               </div>
 
@@ -125,7 +125,7 @@ export default function PortfolioPage() {
                   <Filter className="h-4 w-4 mr-2" />
                   Filters
                   {hasActiveFilters && (
-                    <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full bg-primary-500 text-dark-900">
+                    <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full bg-gray-800 text-white">
                       {selectedCategories.length + selectedStages.length + (searchQuery ? 1 : 0)}
                     </span>
                   )}
@@ -134,7 +134,7 @@ export default function PortfolioPage() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as SortOption)}
-                  className="px-4 py-2 bg-dark-800/50 border border-dark-700 rounded-lg text-gray-100 focus:outline-none focus:border-primary-500"
+                  className="px-4 py-2 bg-white border-2 border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:border-gray-500 shadow-sm"
                 >
                   <option value="featured">Featured First</option>
                   <option value="newest">Newest First</option>
@@ -142,82 +142,76 @@ export default function PortfolioPage() {
                   <option value="category">By Category</option>
                 </select>
 
-                <div className="hidden sm:flex border border-dark-700 rounded-lg overflow-hidden">
-                  <button
+                <div className="hidden sm:flex border-2 border-gray-300 rounded-lg overflow-hidden bg-white shadow-sm">
+                  <Button
                     onClick={() => setViewMode('grid')}
-                    className={cn(
-                      "p-2.5 transition-colors",
-                      viewMode === 'grid' ? 'bg-primary-500 text-dark-900' : 'text-gray-400 hover:text-gray-200'
-                    )}
+                    variant={viewMode === 'grid' ? 'primary' : 'ghost'}
+                    size="icon"
+                    className="rounded-none"
                   >
                     <Grid3x3 className="h-5 w-5" />
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => setViewMode('list')}
-                    className={cn(
-                      "p-2.5 transition-colors",
-                      viewMode === 'list' ? 'bg-primary-500 text-dark-900' : 'text-gray-400 hover:text-gray-200'
-                    )}
+                    variant={viewMode === 'list' ? 'primary' : 'ghost'}
+                    size="icon"
+                    className="rounded-none"
                   >
                     <List className="h-5 w-5" />
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
 
             {/* Filter Panel */}
             {showFilters && (
-              <div className="p-6 bg-dark-800/30 border border-dark-700 rounded-lg space-y-4">
+              <div className="p-6 bg-gray-50 border-2 border-gray-200 rounded-lg space-y-4 shadow-sm">
                 {/* Categories */}
                 <div>
-                  <h3 className="text-sm font-medium text-gray-400 mb-3">Categories</h3>
+                  <h3 className="text-sm font-medium text-gray-900 mb-3">Categories</h3>
                   <div className="flex flex-wrap gap-2">
                     {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
-                      <button
+                      <Button
                         key={key}
                         onClick={() => toggleCategory(key as VentureCategory)}
-                        className={cn(
-                          "px-3 py-1.5 rounded-full text-sm transition-all",
-                          selectedCategories.includes(key as VentureCategory)
-                            ? "bg-primary-500 text-dark-900"
-                            : "bg-dark-700/50 text-gray-400 hover:bg-dark-700 hover:text-gray-200"
-                        )}
+                        variant={selectedCategories.includes(key as VentureCategory) ? "primary" : "outline"}
+                        size="sm"
+                        className="rounded-full"
                       >
                         {label}
-                      </button>
+                      </Button>
                     ))}
                   </div>
                 </div>
 
                 {/* Stages */}
                 <div>
-                  <h3 className="text-sm font-medium text-gray-400 mb-3">Stages</h3>
+                  <h3 className="text-sm font-medium text-gray-900 mb-3">Stages</h3>
                   <div className="flex flex-wrap gap-2">
                     {Object.entries(STAGE_LABELS).map(([key, label]) => (
-                      <button
+                      <Button
                         key={key}
                         onClick={() => toggleStage(key as VentureStage)}
-                        className={cn(
-                          "px-3 py-1.5 rounded-full text-sm transition-all",
-                          selectedStages.includes(key as VentureStage)
-                            ? "bg-primary-500 text-dark-900"
-                            : "bg-dark-700/50 text-gray-400 hover:bg-dark-700 hover:text-gray-200"
-                        )}
+                        variant={selectedStages.includes(key as VentureStage) ? "primary" : "outline"}
+                        size="sm"
+                        className="rounded-full"
                       >
                         {label}
-                      </button>
+                      </Button>
                     ))}
                   </div>
                 </div>
 
                 {hasActiveFilters && (
-                  <button
+                  <Button
                     onClick={clearFilters}
-                    className="text-sm text-gray-400 hover:text-gray-200 flex items-center gap-1"
+                    variant="ghost"
+                    size="sm"
+                    className="text-gray-700 hover:text-gray-900"
                   >
-                    <X className="h-4 w-4" />
+                    <X className="h-4 w-4 mr-1" />
                     Clear all filters
-                  </button>
+                  </Button>
                 )}
               </div>
             )}
@@ -225,13 +219,13 @@ export default function PortfolioPage() {
 
           {/* Results Summary */}
           <div className="mb-6 flex items-center justify-between">
-            <Text className="text-gray-400">
+            <Text className="text-gray-700">
               Showing {filteredVentures.length} of {ventures.length} ventures
             </Text>
             <div className="flex items-center gap-2">
-              <TrendingUp className="h-4 w-4 text-primary-400" />
-              <span className="text-sm text-gray-400">
-                Total Portfolio Value: <span className="text-primary-400 font-semibold">$100M+</span>
+              <TrendingUp className="h-4 w-4 text-gray-700" />
+              <span className="text-sm text-gray-700">
+                Total Portfolio Value: <span className="text-gray-700 font-semibold">$100M+</span>
               </span>
             </div>
           </div>
@@ -253,7 +247,7 @@ export default function PortfolioPage() {
             </div>
           ) : (
             <div className="text-center py-20">
-              <Text className="text-gray-500 mb-4">
+              <Text className="text-gray-700 mb-4">
                 No ventures found matching your criteria
               </Text>
               <Button variant="outline" onClick={clearFilters}>

@@ -95,12 +95,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <StructuredData />
       </head>
       <body
-        className={`${inter.variable} font-sans antialiased bg-dark-900 text-gray-100`}
+        className={`${inter.variable} font-sans antialiased bg-white text-gray-900`}
       >
         <div className="min-h-screen">
           {children}

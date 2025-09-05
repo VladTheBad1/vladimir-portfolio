@@ -1,0 +1,259 @@
+{
+  "timestamp": "2025-09-05T06:43:33.088Z",
+  "score": 4,
+  "results": {
+    "passed": [
+      "Design token usage is good (>80%)",
+      "Visual consistency maintained"
+    ],
+    "warnings": [
+      {
+        "file": "components/features/venture-card.tsx",
+        "issue": "Found 1 hardcoded color values",
+        "recommendation": "Use design tokens from var(--color-*)"
+      },
+      {
+        "file": "components/ui/button.tsx",
+        "issue": "Found 1 hardcoded color values",
+        "recommendation": "Use design tokens from var(--color-*)"
+      },
+      {
+        "file": "components/features/venture-card.tsx",
+        "issue": "Missing states: focus, active, disabled, loading, error",
+        "recommendation": "Add visual states for better UX"
+      },
+      {
+        "file": "components/layout/navigation.tsx",
+        "issue": "Missing states: focus, disabled, loading, error",
+        "recommendation": "Add visual states for better UX"
+      },
+      {
+        "file": "components/seo/structured-data.tsx",
+        "issue": "Missing states: hover, focus, active, disabled, loading, error",
+        "recommendation": "Add visual states for better UX"
+      },
+      {
+        "file": "components/ui/button.tsx",
+        "issue": "Missing states: focus, loading, error",
+        "recommendation": "Add visual states for better UX"
+      },
+      {
+        "file": "components/ui/card.tsx",
+        "issue": "Missing states: focus, disabled, loading, error",
+        "recommendation": "Add visual states for better UX"
+      },
+      {
+        "file": "components/ui/modal.tsx",
+        "issue": "Missing states: hover, focus, active, disabled, loading, error",
+        "recommendation": "Add visual states for better UX"
+      },
+      {
+        "file": "components/features/venture-card.tsx",
+        "issue": "Click handlers without keyboard support",
+        "recommendation": "Add onKeyDown handlers for keyboard accessibility"
+      },
+      {
+        "file": "components/features/venture-card.tsx",
+        "issue": "No focus indicators defined",
+        "recommendation": "Add visible focus states for keyboard navigation"
+      },
+      {
+        "file": "components/layout/navigation.tsx",
+        "issue": "1 buttons may need ARIA labels",
+        "recommendation": "Add aria-label for icon-only buttons"
+      },
+      {
+        "file": "components/layout/navigation.tsx",
+        "issue": "No focus indicators defined",
+        "recommendation": "Add visible focus states for keyboard navigation"
+      },
+      {
+        "file": "components/seo/structured-data.tsx",
+        "issue": "No focus indicators defined",
+        "recommendation": "Add visible focus states for keyboard navigation"
+      },
+      {
+        "file": "components/ui/badge.tsx",
+        "issue": "No focus indicators defined",
+        "recommendation": "Add visible focus states for keyboard navigation"
+      },
+      {
+        "file": "components/ui/button.tsx",
+        "issue": "No focus indicators defined",
+        "recommendation": "Add visible focus states for keyboard navigation"
+      },
+      {
+        "file": "components/ui/card.tsx",
+        "issue": "No focus indicators defined",
+        "recommendation": "Add visible focus states for keyboard navigation"
+      },
+      {
+        "file": "components/ui/modal.tsx",
+        "issue": "Click handlers without keyboard support",
+        "recommendation": "Add onKeyDown handlers for keyboard accessibility"
+      },
+      {
+        "file": "components/ui/modal.tsx",
+        "issue": "No focus indicators defined",
+        "recommendation": "Add visible focus states for keyboard navigation"
+      },
+      {
+        "file": "components/ui/skeleton.tsx",
+        "issue": "No focus indicators defined",
+        "recommendation": "Add visible focus states for keyboard navigation"
+      },
+      {
+        "file": "components/ui/typography.tsx",
+        "issue": "No focus indicators defined",
+        "recommendation": "Add visible focus states for keyboard navigation"
+      },
+      {
+        "file": "app/ai-lab/page.tsx",
+        "issue": "1 buttons may need ARIA labels",
+        "recommendation": "Add aria-label for icon-only buttons"
+      },
+      {
+        "file": "app/ai-lab/page.tsx",
+        "issue": "Click handlers without keyboard support",
+        "recommendation": "Add onKeyDown handlers for keyboard accessibility"
+      },
+      {
+        "file": "app/ai-lab/page.tsx",
+        "issue": "No focus indicators defined",
+        "recommendation": "Add visible focus states for keyboard navigation"
+      },
+      {
+        "file": "app/global-intelligence/page.tsx",
+        "issue": "1 buttons may need ARIA labels",
+        "recommendation": "Add aria-label for icon-only buttons"
+      },
+      {
+        "file": "app/global-intelligence/page.tsx",
+        "issue": "Click handlers without keyboard support",
+        "recommendation": "Add onKeyDown handlers for keyboard accessibility"
+      },
+      {
+        "file": "app/investor/page.tsx",
+        "issue": "1 buttons may need ARIA labels",
+        "recommendation": "Add aria-label for icon-only buttons"
+      },
+      {
+        "file": "app/investor/page.tsx",
+        "issue": "Click handlers without keyboard support",
+        "recommendation": "Add onKeyDown handlers for keyboard accessibility"
+      },
+      {
+        "file": "app/layout.tsx",
+        "issue": "No focus indicators defined",
+        "recommendation": "Add visible focus states for keyboard navigation"
+      },
+      {
+        "file": "app/leadership/page.tsx",
+        "issue": "1 buttons may need ARIA labels",
+        "recommendation": "Add aria-label for icon-only buttons"
+      },
+      {
+        "file": "app/leadership/page.tsx",
+        "issue": "Click handlers without keyboard support",
+        "recommendation": "Add onKeyDown handlers for keyboard accessibility"
+      },
+      {
+        "file": "app/leadership/page.tsx",
+        "issue": "No focus indicators defined",
+        "recommendation": "Add visible focus states for keyboard navigation"
+      },
+      {
+        "file": "app/page.tsx",
+        "issue": "No focus indicators defined",
+        "recommendation": "Add visible focus states for keyboard navigation"
+      },
+      {
+        "file": "app/portfolio/page.tsx",
+        "issue": "5 buttons may need ARIA labels",
+        "recommendation": "Add aria-label for icon-only buttons"
+      },
+      {
+        "file": "app/portfolio/page.tsx",
+        "issue": "Click handlers without keyboard support",
+        "recommendation": "Add onKeyDown handlers for keyboard accessibility"
+      },
+      {
+        "file": "app/vision/page.tsx",
+        "issue": "1 buttons may need ARIA labels",
+        "recommendation": "Add aria-label for icon-only buttons"
+      },
+      {
+        "file": "app/vision/page.tsx",
+        "issue": "Click handlers without keyboard support",
+        "recommendation": "Add onKeyDown handlers for keyboard accessibility"
+      },
+      {
+        "file": "app/vision/page.tsx",
+        "issue": "No focus indicators defined",
+        "recommendation": "Add visible focus states for keyboard navigation"
+      },
+      {
+        "file": "app/ai-lab/page.tsx",
+        "issue": "No code splitting detected",
+        "recommendation": "Use dynamic imports for better performance"
+      },
+      {
+        "file": "app/global-intelligence/page.tsx",
+        "issue": "No code splitting detected",
+        "recommendation": "Use dynamic imports for better performance"
+      },
+      {
+        "file": "app/investor/page.tsx",
+        "issue": "No code splitting detected",
+        "recommendation": "Use dynamic imports for better performance"
+      },
+      {
+        "file": "app/layout.tsx",
+        "issue": "No code splitting detected",
+        "recommendation": "Use dynamic imports for better performance"
+      },
+      {
+        "file": "app/leadership/page.tsx",
+        "issue": "No code splitting detected",
+        "recommendation": "Use dynamic imports for better performance"
+      },
+      {
+        "file": "app/page.tsx",
+        "issue": "No code splitting detected",
+        "recommendation": "Use dynamic imports for better performance"
+      },
+      {
+        "file": "app/portfolio/page.tsx",
+        "issue": "No code splitting detected",
+        "recommendation": "Use dynamic imports for better performance"
+      },
+      {
+        "file": "app/vision/page.tsx",
+        "issue": "No code splitting detected",
+        "recommendation": "Use dynamic imports for better performance"
+      },
+      {
+        "file": "components/features/venture-card.tsx",
+        "issue": "No responsive breakpoints found",
+        "recommendation": "Add responsive classes for different screen sizes"
+      },
+      {
+        "file": "components/ui/badge.tsx",
+        "issue": "No responsive breakpoints found",
+        "recommendation": "Add responsive classes for different screen sizes"
+      }
+    ],
+    "errors": [],
+    "metrics": {
+      "tokenUsage": {
+        "tokensUsed": 116,
+        "hardcodedValues": 2,
+        "ratio": 0.9830508474576272
+      }
+    }
+  },
+  "recommendations": [
+    "Continue monitoring design consistency",
+    "Consider adding visual regression tests"
+  ]
+}

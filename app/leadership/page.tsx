@@ -14,7 +14,6 @@ import {
   Heart,
   Trophy,
   Star,
-  MessageCircle,
   Linkedin,
   Twitter,
   Mail,
@@ -181,9 +180,9 @@ export default function LeadershipPage() {
   return (
     <>
       <Navigation />
-      <main className="min-h-screen pt-24">
+      <main className="min-h-screen pt-24 bg-white">
         {/* Hero Section */}
-        <div className="section-container py-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-20">
           <div className="text-center max-w-4xl mx-auto">
             <Badge variant="primary" className="mb-4">
               <Users className="h-3 w-3 mr-1" />
@@ -199,27 +198,27 @@ export default function LeadershipPage() {
             {/* Leadership Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
               <div className="text-center">
-                <div className="text-4xl font-bold text-primary-400 mb-2">250+</div>
-                <Text className="text-sm text-gray-400">Team Members</Text>
+                <div className="text-4xl font-bold text-gray-900 mb-2">250+</div>
+                <Text className="text-sm text-gray-600">Team Members</Text>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-primary-400 mb-2">15</div>
-                <Text className="text-sm text-gray-400">Countries</Text>
+                <div className="text-4xl font-bold text-gray-900 mb-2">15</div>
+                <Text className="text-sm text-gray-600">Countries</Text>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-primary-400 mb-2">87%</div>
-                <Text className="text-sm text-gray-400">Retention Rate</Text>
+                <div className="text-4xl font-bold text-gray-900 mb-2">87%</div>
+                <Text className="text-sm text-gray-600">Retention Rate</Text>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-primary-400 mb-2">4.9</div>
-                <Text className="text-sm text-gray-400">Culture Score</Text>
+                <div className="text-4xl font-bold text-gray-900 mb-2">4.9</div>
+                <Text className="text-sm text-gray-600">Culture Score</Text>
               </div>
             </div>
           </div>
         </div>
 
         {/* Leadership Philosophy */}
-        <div className="section-container pb-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pb-20">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <H2 className="mb-4">Leadership Philosophy</H2>
@@ -233,15 +232,15 @@ export default function LeadershipPage() {
               {leadershipQualities.map((quality, index) => {
                 const Icon = quality.icon
                 return (
-                  <Card key={index} variant="default" className="bg-dark-800/30 border-dark-700 hover:border-primary-500/30 transition-all">
+                  <Card key={index} variant="default" className="transition-all">
                     <CardContent className="p-6">
                       <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-lg bg-primary-500/20 text-primary-400 flex items-center justify-center flex-shrink-0">
+                        <div className="w-12 h-12 rounded-lg bg-gray-100 text-gray-700 flex items-center justify-center flex-shrink-0">
                           <Icon className="h-6 w-6" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-gray-100 mb-2">{quality.title}</h3>
-                          <Text className="text-sm text-gray-400">{quality.description}</Text>
+                          <h3 className="font-semibold text-gray-900 mb-2">{quality.title}</h3>
+                          <Text className="text-sm text-gray-600">{quality.description}</Text>
                         </div>
                       </div>
                     </CardContent>
@@ -253,7 +252,7 @@ export default function LeadershipPage() {
         </div>
 
         {/* Team Showcase */}
-        <div className="section-container pb-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pb-20">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <H2 className="mb-4">Venture Leadership Team</H2>
@@ -266,10 +265,11 @@ export default function LeadershipPage() {
               {teamMembers.map((member) => (
                 <Card 
                   key={member.id}
-                  variant="default" 
+                  variant="default"
+                  hover={true}
+                  interactive={true}
                   className={cn(
-                    "bg-dark-800/30 border-dark-700 hover:border-primary-500/30 transition-all cursor-pointer",
-                    member.featured && "ring-1 ring-primary-500/20"
+                    "bg-white transition-all cursor-pointer shadow-sm"
                   )}
                   onClick={() => setSelectedMember(member)}
                 >
@@ -287,26 +287,26 @@ export default function LeadershipPage() {
                       </div>
                     </div>
                     <div className="flex items-center gap-2 mt-2">
-                      <Building className="h-3 w-3 text-gray-500" />
-                      <Text className="text-xs text-gray-500">{member.company}</Text>
+                      <Building className="h-3 w-3 text-gray-400" />
+                      <Text className="text-xs text-gray-600">{member.company}</Text>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <Text className="text-sm text-gray-400 line-clamp-2">{member.bio}</Text>
+                    <Text className="text-sm text-gray-700 line-clamp-2">{member.bio}</Text>
                     
                     {/* Expertise Tags */}
                     <div className="flex flex-wrap gap-1">
                       {member.expertise.slice(0, 3).map((skill) => (
-                        <span key={skill} className="text-xs px-2 py-1 bg-dark-700/50 rounded text-gray-400">
+                        <span key={skill} className="text-xs px-2 py-1 bg-gray-100 rounded text-gray-700">
                           {skill}
                         </span>
                       ))}
                     </div>
 
                     {/* Key Achievement */}
-                    <div className="flex items-start gap-2 pt-2 border-t border-dark-700/50">
-                      <Trophy className="h-3 w-3 text-primary-400 mt-0.5" />
-                      <Text className="text-xs text-gray-400">
+                    <div className="flex items-start gap-2 pt-2 border-t border-gray-200">
+                      <Trophy className="h-3 w-3 text-gray-600 mt-0.5" />
+                      <Text className="text-xs text-gray-700">
                         {member.achievements[0]}
                       </Text>
                     </div>
@@ -335,7 +335,7 @@ export default function LeadershipPage() {
         </div>
 
         {/* Advisory Board */}
-        <div className="section-container pb-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pb-20">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <H2 className="mb-4">Advisory Board</H2>
@@ -346,26 +346,26 @@ export default function LeadershipPage() {
 
             <div className="grid md:grid-cols-3 gap-6">
               {advisors.map((advisor) => (
-                <Card key={advisor.id} variant="default" className="bg-dark-800/30 border-dark-700">
+                <Card key={advisor.id} variant="default">
                   <CardContent className="p-6">
                     <div className="space-y-4">
                       <div>
-                        <h3 className="font-semibold text-gray-100 mb-1">{advisor.name}</h3>
-                        <Text className="text-sm text-primary-400 mb-2">{advisor.title}</Text>
+                        <h3 className="font-semibold text-gray-900 mb-1">{advisor.name}</h3>
+                        <Text className="text-sm text-gray-700 font-medium mb-2">{advisor.title}</Text>
                         <div className="flex items-center gap-2">
-                          <Building className="h-3 w-3 text-gray-500" />
-                          <Text className="text-xs text-gray-500">{advisor.company}</Text>
+                          <Building className="h-3 w-3 text-gray-400" />
+                          <Text className="text-xs text-gray-600">{advisor.company}</Text>
                         </div>
                       </div>
                       
                       <div>
-                        <Text className="text-xs text-gray-500 mb-1">Expertise</Text>
-                        <Text className="text-sm text-gray-300">{advisor.expertise}</Text>
+                        <Text className="text-xs text-gray-600 mb-1">Expertise</Text>
+                        <Text className="text-sm text-gray-700">{advisor.expertise}</Text>
                       </div>
 
                       <div>
-                        <Text className="text-xs text-gray-500 mb-1">Contribution</Text>
-                        <Text className="text-sm text-gray-400">{advisor.contribution}</Text>
+                        <Text className="text-xs text-gray-600 mb-1">Contribution</Text>
+                        <Text className="text-sm text-gray-600">{advisor.contribution}</Text>
                       </div>
                     </div>
                   </CardContent>
@@ -376,8 +376,8 @@ export default function LeadershipPage() {
         </div>
 
         {/* Join Us CTA */}
-        <div className="section-container pb-20">
-          <Card variant="default" className="bg-gradient-to-r from-primary-500/10 to-primary-600/10 border-primary-500/30">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pb-20">
+          <Card variant="default" className="bg-gray-50">
             <CardContent className="p-12 text-center">
               <Badge variant="primary" className="mb-4">
                 <Zap className="h-3 w-3 mr-1" />
@@ -390,11 +390,9 @@ export default function LeadershipPage() {
               </Lead>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg">
-                  <Users className="h-5 w-5 mr-2" />
                   View Open Positions
                 </Button>
                 <Button variant="outline" size="lg">
-                  <MessageCircle className="h-5 w-5 mr-2" />
                   Start a Conversation
                 </Button>
               </div>
@@ -405,12 +403,12 @@ export default function LeadershipPage() {
         {/* Member Detail Modal */}
         {selectedMember && (
           <div 
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-900/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/80 backdrop-blur-sm"
             onClick={() => setSelectedMember(null)}
           >
             <Card 
               variant="default" 
-              className="bg-dark-800 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-white max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-xl"
               onClick={(e) => e.stopPropagation()}
             >
               <CardHeader>
@@ -429,7 +427,7 @@ export default function LeadershipPage() {
                   </div>
                   <button 
                     onClick={() => setSelectedMember(null)}
-                    className="text-gray-400 hover:text-gray-200"
+                    className="text-gray-500 hover:text-gray-700"
                   >
                     <X className="h-6 w-6" />
                   </button>
@@ -438,13 +436,13 @@ export default function LeadershipPage() {
               <CardContent className="space-y-6">
                 {/* Bio */}
                 <div>
-                  <h3 className="text-sm font-medium text-primary-400 mb-2">Biography</h3>
-                  <Text className="text-gray-300">{selectedMember.bio}</Text>
+                  <h3 className="text-sm font-medium text-gray-800 mb-2">Biography</h3>
+                  <Text className="text-gray-700">{selectedMember.bio}</Text>
                 </div>
 
                 {/* Expertise */}
                 <div>
-                  <h3 className="text-sm font-medium text-primary-400 mb-3">Areas of Expertise</h3>
+                  <h3 className="text-sm font-medium text-gray-800 mb-3">Areas of Expertise</h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedMember.expertise.map((skill) => (
                       <Badge key={skill} variant="outline">{skill}</Badge>
@@ -454,19 +452,19 @@ export default function LeadershipPage() {
 
                 {/* Achievements */}
                 <div>
-                  <h3 className="text-sm font-medium text-primary-400 mb-3">Key Achievements</h3>
+                  <h3 className="text-sm font-medium text-gray-800 mb-3">Key Achievements</h3>
                   <div className="space-y-2">
                     {selectedMember.achievements.map((achievement, index) => (
                       <div key={index} className="flex items-start gap-2">
                         <Award className="h-4 w-4 text-yellow-400 mt-0.5" />
-                        <Text className="text-gray-300">{achievement}</Text>
+                        <Text className="text-gray-700">{achievement}</Text>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Connect */}
-                <div className="flex gap-4 pt-4 border-t border-dark-700">
+                <div className="flex gap-4 pt-4 border-t border-gray-200">
                   {selectedMember.linkedin && (
                     <Button variant="outline" className="flex-1">
                       <Linkedin className="h-4 w-4 mr-2" />

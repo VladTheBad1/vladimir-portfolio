@@ -12,10 +12,10 @@ const variantStyles = {
   h2: 'text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight',
   h3: 'text-2xl sm:text-3xl md:text-4xl font-semibold',
   h4: 'text-xl sm:text-2xl md:text-3xl font-semibold',
-  body: 'text-base text-gray-300',
-  lead: 'text-lg sm:text-xl md:text-2xl text-gray-300 leading-relaxed',
-  small: 'text-sm text-gray-400',
-  muted: 'text-sm text-gray-500',
+  body: 'text-base text-gray-800',
+  lead: 'text-lg sm:text-xl md:text-2xl text-gray-700 leading-relaxed',
+  small: 'text-sm text-gray-600',
+  muted: 'text-sm text-gray-600',
 }
 
 export const Typography = React.forwardRef<HTMLElement, TypographyProps>(

@@ -1,0 +1,41 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--read-only"
+      ],
+      "env": {
+        "SUPABASE_URL": "${NEXT_PUBLIC_SUPABASE_URL}",
+        "SUPABASE_SERVICE_ROLE_KEY": "${SUPABASE_SERVICE_ROLE_KEY}"
+      },
+      "description": "Supabase MCP server for database operations and project management"
+    },
+    "vercel": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@vercel/mcp-server@latest"
+      ],
+      "env": {
+        "VERCEL_TOKEN": "${VERCEL_TOKEN}",
+        "VERCEL_PROJECT_ID": "prj_3fvTHqXRbOdin26qIfPUXlyIuaOE",
+        "VERCEL_TEAM_ID": "team_KMbZzFBNlS5KqvjAiz0q9fnV"
+      },
+      "description": "Vercel MCP server for deployment management and monitoring"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ],
+      "description": "Playwright MCP server for browser automation and E2E testing"
+    }
+  },
+  "env": {
+    "description": "Environment variables are loaded from .env.local file"
+  }
+}
