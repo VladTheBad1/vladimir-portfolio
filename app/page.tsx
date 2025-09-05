@@ -9,35 +9,35 @@ export default function HomePage() {
   return (
     <>
       <Navigation />
-      <main className="min-h-screen pt-16">
+      <main className="min-h-screen pt-24">
         <div className="section-container py-20">
           <div className="text-center">
-            <H1 gradient className="mb-6">
+            <H1 gradient className="mb-8">
               Vladimir Proskurov
             </H1>
-            <h2 className="text-2xl md:text-3xl text-gray-300 mb-8">
+            <h2 className="text-3xl md:text-4xl font-semibold text-gray-300 mb-8">
               Serial Innovator Command Center
             </h2>
-            <Lead className="max-w-2xl mx-auto mb-12">
+            <Lead className="max-w-3xl mx-auto mb-12">
               Where vision meets velocity. Creating tomorrow&apos;s companies today.
             </Lead>
             
-            <div className="flex justify-center gap-4 mb-16">
-              <Button variant="primary" size="lg">
+            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-20">
+              <Button variant="primary" size="lg" className="min-w-[180px]">
                 Explore Portfolio
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button variant="outline" size="lg">
+              <Button variant="outline" size="lg" className="min-w-[180px]">
                 Watch Demo
               </Button>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-6 text-left max-w-5xl mx-auto">
-              <Card variant="venture">
-                <CardHeader>
-                  <Briefcase className="h-8 w-8 text-primary-400 mb-2" />
-                  <CardTitle className="text-primary-300">7+ Active Ventures</CardTitle>
-                  <CardDescription>
+            <div className="grid md:grid-cols-3 gap-8 text-left max-w-6xl mx-auto">
+              <Card variant="venture" className="group">
+                <CardHeader className="pb-4">
+                  <Briefcase className="h-10 w-10 text-primary-400 mb-4 group-hover:scale-110 transition-transform" />
+                  <CardTitle className="text-xl text-primary-300 mb-2">7+ Active Ventures</CardTitle>
+                  <CardDescription className="text-base">
                     Health MedTech, AI Solutions, NanoTech, and more
                   </CardDescription>
                 </CardHeader>
@@ -50,11 +50,11 @@ export default function HomePage() {
                 </CardContent>
               </Card>
 
-              <Card variant="venture">
-                <CardHeader>
-                  <Globe className="h-8 w-8 text-primary-400 mb-2" />
-                  <CardTitle className="text-primary-300">Global Experience</CardTitle>
-                  <CardDescription>
+              <Card variant="venture" className="group">
+                <CardHeader className="pb-4">
+                  <Globe className="h-10 w-10 text-primary-400 mb-4 group-hover:scale-110 transition-transform" />
+                  <CardTitle className="text-xl text-primary-300 mb-2">Global Experience</CardTitle>
+                  <CardDescription className="text-base">
                     Operating across Europe, Asia, Africa, and Americas
                   </CardDescription>
                 </CardHeader>
@@ -66,11 +66,11 @@ export default function HomePage() {
                 </CardContent>
               </Card>
 
-              <Card variant="venture">
-                <CardHeader>
-                  <Lightbulb className="h-8 w-8 text-primary-400 mb-2" />
-                  <CardTitle className="text-primary-300">AI-Powered Creation</CardTitle>
-                  <CardDescription>
+              <Card variant="venture" className="group">
+                <CardHeader className="pb-4">
+                  <Lightbulb className="h-10 w-10 text-primary-400 mb-4 group-hover:scale-110 transition-transform" />
+                  <CardTitle className="text-xl text-primary-300 mb-2">AI-Powered Creation</CardTitle>
+                  <CardDescription className="text-base">
                     Building a company a day with AI capabilities
                   </CardDescription>
                 </CardHeader>

@@ -8,14 +8,14 @@ export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const variantStyles = {
-  h1: 'text-5xl md:text-7xl font-bold tracking-tight',
-  h2: 'text-3xl md:text-5xl font-bold tracking-tight',
-  h3: 'text-2xl md:text-3xl font-semibold',
-  h4: 'text-xl md:text-2xl font-semibold',
-  body: 'text-base',
-  lead: 'text-lg md:text-xl text-gray-300',
-  small: 'text-sm',
-  muted: 'text-sm text-gray-400',
+  h1: 'text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-tight',
+  h2: 'text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight',
+  h3: 'text-2xl sm:text-3xl md:text-4xl font-semibold',
+  h4: 'text-xl sm:text-2xl md:text-3xl font-semibold',
+  body: 'text-base text-gray-300',
+  lead: 'text-lg sm:text-xl md:text-2xl text-gray-300 leading-relaxed',
+  small: 'text-sm text-gray-400',
+  muted: 'text-sm text-gray-500',
 }
 
 export const Typography = React.forwardRef<HTMLElement, TypographyProps>(

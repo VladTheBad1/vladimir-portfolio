@@ -20,9 +20,9 @@ export function Navigation() {
   const pathname = usePathname()
 
   return (
-    <nav className="fixed top-0 w-full z-50 glass-effect border-b border-dark-700/50">
+    <nav className="fixed top-0 left-0 right-0 w-full z-50 glass-effect border-b border-dark-700/50">
       <div className="section-container">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center">
