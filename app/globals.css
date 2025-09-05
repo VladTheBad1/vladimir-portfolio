@@ -18,9 +18,6 @@
     --primary-foreground: 222.2 47.4% 11.2%;
   }
 
-  * {
-    @apply border-border;
-  }
 
   body {
     @apply bg-background text-foreground;
