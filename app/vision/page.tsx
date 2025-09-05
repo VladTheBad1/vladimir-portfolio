@@ -14,12 +14,9 @@ import {
   Brain,
   Heart,
   Sparkles,
-  ArrowRight,
   CheckCircle,
-  Clock,
   Users,
   Zap,
-  Shield,
   Lightbulb,
   DollarSign,
   Building,
@@ -28,7 +25,8 @@ import {
   Star,
   Activity,
   Trophy,
-  X
+  X,
+  type LucideIcon
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -39,11 +37,11 @@ interface Milestone {
   description: string
   metrics?: string[]
   status: 'completed' | 'in-progress' | 'upcoming'
-  icon: any
+  icon: LucideIcon
 }
 
 interface VisionPillar {
-  icon: any
+  icon: LucideIcon
   title: string
   description: string
   goals: string[]
@@ -222,9 +220,9 @@ export default function VisionPage() {
             <Card variant="default" className="bg-gradient-to-r from-primary-500/10 to-primary-600/10 border-primary-500/30 mb-12">
               <CardContent className="p-8">
                 <blockquote className="text-xl md:text-2xl text-gray-100 font-medium leading-relaxed">
-                  "By 2030, we will have created 5,000+ ventures, employing 100,000+ people, 
+                  &quot;By 2030, we will have created 5,000+ ventures, employing 100,000+ people, 
                   solving problems for 1 billion+ humans. This is not just a goal—it is an 
-                  inevitability when you combine ADHD superpowers with AI capabilities."
+                  inevitability when you combine ADHD superpowers with AI capabilities.&quot;
                 </blockquote>
                 <div className="mt-6">
                   <div className="text-primary-400 font-semibold">Vladimir Proskurov</div>
@@ -415,7 +413,7 @@ export default function VisionPage() {
               </div>
               <div className="mt-8 pt-8 border-t border-primary-500/20">
                 <Text className="text-sm text-gray-400">
-                  "The best way to predict the future is to invent it." — Alan Kay
+                  &quot;The best way to predict the future is to invent it.&quot; — Alan Kay
                 </Text>
               </div>
             </CardContent>

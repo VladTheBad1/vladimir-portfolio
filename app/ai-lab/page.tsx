@@ -19,7 +19,6 @@ import {
   Timer,
   CheckCircle,
   RefreshCw,
-  ArrowRight,
   Lightbulb,
   Search,
   Shield,

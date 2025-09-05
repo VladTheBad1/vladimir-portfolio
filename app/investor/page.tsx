@@ -19,7 +19,6 @@ import {
   ChevronRight,
   ArrowUpRight,
   Building,
-  Globe,
   Target,
   BarChart3,
   PieChart,
@@ -29,7 +28,8 @@ import {
   CheckCircle,
   AlertCircle,
   Star,
-  X
+  X,
+  type LucideIcon
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -51,7 +51,7 @@ interface PortfolioMetric {
   label: string
   value: string
   change: number
-  icon: any
+  icon: LucideIcon
 }
 
 const opportunities: InvestmentOpportunity[] = [
@@ -478,7 +478,7 @@ export default function InvestorPage() {
                 <Calendar className="h-3 w-3 mr-1" />
                 Schedule a Meeting
               </Badge>
-              <H2 className="mb-4">Let's Discuss Your Investment</H2>
+              <H2 className="mb-4">Let&apos;s Discuss Your Investment</H2>
               <Lead className="max-w-2xl mx-auto mb-8 text-base">
                 Book a one-on-one call with our investment team to discuss opportunities, 
                 portfolio strategy, and answer any questions.

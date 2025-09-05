@@ -12,7 +12,6 @@ import {
   AlertCircle, 
   Activity,
   Target,
-  Users,
   DollarSign,
   ChevronRight,
   MapPin,
@@ -21,7 +20,6 @@ import {
   Shield,
   Clock,
   ArrowUpRight,
-  ArrowDownRight,
   Minus,
   X
 } from 'lucide-react'

@@ -19,15 +19,8 @@ import {
   Twitter,
   Mail,
   Building,
-  MapPin,
-  Calendar,
   Award,
-  TrendingUp,
-  Lightbulb,
-  Shield,
   Zap,
-  Globe,
-  ChevronRight,
   X
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -232,7 +225,7 @@ export default function LeadershipPage() {
               <H2 className="mb-4">Leadership Philosophy</H2>
               <Lead className="max-w-3xl mx-auto text-base">
                 Great companies are built by great people. My role is to attract, inspire, and empower 
-                the brightest minds to solve humanity's biggest challenges.
+                the brightest minds to solve humanity&apos;s biggest challenges.
               </Lead>
             </div>
 
@@ -388,12 +381,12 @@ export default function LeadershipPage() {
             <CardContent className="p-12 text-center">
               <Badge variant="primary" className="mb-4">
                 <Zap className="h-3 w-3 mr-1" />
-                We're Hiring
+                We&apos;re Hiring
               </Badge>
               <H2 className="mb-4">Join Our Mission</H2>
               <Lead className="max-w-2xl mx-auto mb-8 text-base">
-                We're always looking for exceptional talent to join our ventures. 
-                If you're passionate about building the future, let's talk.
+                We&apos;re always looking for exceptional talent to join our ventures. 
+                If you&apos;re passionate about building the future, let&apos;s talk.
               </Lead>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg">

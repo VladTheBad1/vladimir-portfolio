@@ -40,36 +40,36 @@ Typography.displayName = 'Typography'
 
 // Convenience components
 export const H1 = React.forwardRef<HTMLHeadingElement, Omit<TypographyProps, 'as' | 'variant'>>(
-  (props, ref) => <Typography as="h1" variant="h1" ref={ref as any} {...props} />
+  (props, ref) => <Typography as="h1" variant="h1" ref={ref as React.Ref<HTMLElement>} {...props} />
 )
 H1.displayName = 'H1'
 
 export const H2 = React.forwardRef<HTMLHeadingElement, Omit<TypographyProps, 'as' | 'variant'>>(
-  (props, ref) => <Typography as="h2" variant="h2" ref={ref as any} {...props} />
+  (props, ref) => <Typography as="h2" variant="h2" ref={ref as React.Ref<HTMLElement>} {...props} />
 )
 H2.displayName = 'H2'
 
 export const H3 = React.forwardRef<HTMLHeadingElement, Omit<TypographyProps, 'as' | 'variant'>>(
-  (props, ref) => <Typography as="h3" variant="h3" ref={ref as any} {...props} />
+  (props, ref) => <Typography as="h3" variant="h3" ref={ref as React.Ref<HTMLElement>} {...props} />
 )
 H3.displayName = 'H3'
 
 export const H4 = React.forwardRef<HTMLHeadingElement, Omit<TypographyProps, 'as' | 'variant'>>(
-  (props, ref) => <Typography as="h4" variant="h4" ref={ref as any} {...props} />
+  (props, ref) => <Typography as="h4" variant="h4" ref={ref as React.Ref<HTMLElement>} {...props} />
 )
 H4.displayName = 'H4'
 
 export const Lead = React.forwardRef<HTMLParagraphElement, Omit<TypographyProps, 'as' | 'variant'>>(
-  (props, ref) => <Typography as="p" variant="lead" ref={ref as any} {...props} />
+  (props, ref) => <Typography as="p" variant="lead" ref={ref as React.Ref<HTMLElement>} {...props} />
 )
 Lead.displayName = 'Lead'
 
 export const Text = React.forwardRef<HTMLParagraphElement, Omit<TypographyProps, 'as' | 'variant'>>(
-  (props, ref) => <Typography as="p" variant="body" ref={ref as any} {...props} />
+  (props, ref) => <Typography as="p" variant="body" ref={ref as React.Ref<HTMLElement>} {...props} />
 )
 Text.displayName = 'Text'
 
 export const Muted = React.forwardRef<HTMLParagraphElement, Omit<TypographyProps, 'as' | 'variant'>>(
-  (props, ref) => <Typography as="p" variant="muted" ref={ref as any} {...props} />
+  (props, ref) => <Typography as="p" variant="muted" ref={ref as React.Ref<HTMLElement>} {...props} />
 )
 Muted.displayName = 'Muted'
