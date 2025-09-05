@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { Menu, X, Briefcase, Lightbulb, Globe, Users, TrendingUp, Mail } from 'lucide-react'
+import { Menu, X, Briefcase, Lightbulb, Globe, Users, TrendingUp, Mail, Shield } from 'lucide-react'
 
 const navItems = [
   { label: 'Portfolio', href: '/portfolio', icon: Briefcase },
@@ -54,7 +54,13 @@ export function Navigation() {
                 </Link>
               )
             })}
-            <Button variant="primary" size="sm" className="ml-4">
+            <Link href="/investor">
+              <Button variant="outline" size="sm" className="ml-2">
+                <Shield className="h-4 w-4 mr-2" />
+                Investor Portal
+              </Button>
+            </Link>
+            <Button variant="primary" size="sm" className="ml-2">
               <Mail className="h-4 w-4 mr-2" />
               Contact
             </Button>
@@ -94,7 +100,13 @@ export function Navigation() {
                 </Link>
               )
             })}
-            <Button variant="primary" className="w-full mt-4">
+            <Link href="/investor" onClick={() => setMobileMenuOpen(false)}>
+              <Button variant="outline" className="w-full mt-2">
+                <Shield className="h-4 w-4 mr-2" />
+                Investor Portal
+              </Button>
+            </Link>
+            <Button variant="primary" className="w-full mt-2">
               <Mail className="h-4 w-4 mr-2" />
               Contact
             </Button>
