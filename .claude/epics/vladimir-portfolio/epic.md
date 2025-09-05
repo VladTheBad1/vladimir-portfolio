@@ -4,7 +4,7 @@ status: backlog
 created: 2025-09-05T04:05:11Z
 progress: 0%
 prd: .claude/prds/vladimir-portfolio.md
-github: [Will be updated when synced to GitHub]
+github: https://github.com/VladTheBad1/vladimir-portfolio/issues/1
 ---
 
 # Epic: Vladimir Portfolio - Serial Innovator Command Center
