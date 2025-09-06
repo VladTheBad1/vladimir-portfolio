@@ -131,7 +131,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     const handleKeyDown = interactive ? (e: React.KeyboardEvent<HTMLDivElement>) => {
       if ((e.key === 'Enter' || e.key === ' ') && !disabled && !loading) {
         e.preventDefault()
-        onClick?.(e as any)
+        onClick?.(e as React.MouseEvent<HTMLDivElement>)
       }
     } : undefined
     

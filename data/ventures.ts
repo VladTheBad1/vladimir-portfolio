@@ -3,134 +3,137 @@ import { Venture } from '@/types/venture'
 export const ventures: Venture[] = [
   {
     id: '1',
-    name: 'MediCore Solutions',
-    tagline: 'Revolutionary diagnostic technology',
-    description: 'Advanced medical diagnostics using AI-powered imaging and predictive analytics to detect diseases at early stages.',
+    name: 'VCTRONICS CORP',
+    tagline: 'PEMF patented technology for cancer research',
+    description: 'Revolutionary PEMF (Pulsed Electromagnetic Field) patented technology for research and development, specializing in cancer research applications. Currently in preclinical trials with global reach.',
     category: 'health',
-    stage: 'scale',
-    founded: '2021',
-    teamSize: 45,
+    stage: 'mvp',
+    founded: '2020',
     metrics: {
-      revenue: '$12M ARR',
-      users: '150+ Hospitals',
-      growth: '180% YoY'
+      users: '550+ Customers',
+      growth: '35 Countries'
     },
-    technologies: ['AI/ML', 'Medical Imaging', 'Cloud Computing'],
+    technologies: ['PEMF Technology', 'Medical Devices', 'Cancer Research', 'Clinical Trials'],
     featured: true
   },
   {
     id: '2',
-    name: 'NeuralForge AI',
-    tagline: 'Enterprise AI automation platform',
-    description: 'End-to-end AI solutions for enterprise automation, from document processing to predictive maintenance.',
+    name: 'VeriVox AI',
+    tagline: 'Legal audio transcription powered by AI',
+    description: 'Advanced AI-powered audio transcription platform specifically designed for legal professionals. MVP ready with cutting-edge accuracy for legal terminology and proceedings.',
     category: 'ai',
-    stage: 'growth',
-    founded: '2022',
-    teamSize: 28,
+    stage: 'mvp',
+    founded: '2023',
     metrics: {
-      revenue: '$5M ARR',
-      users: '50+ Enterprises',
-      growth: '220% YoY'
+      users: 'MVP Ready',
+      growth: 'Seed Round'
     },
-    technologies: ['GPT-4', 'Computer Vision', 'AutoML'],
+    technologies: ['AI/ML', 'Speech Recognition', 'Legal Tech', 'Cloud Computing'],
     featured: true
   },
   {
     id: '3',
-    name: 'NanoShield Technologies',
-    tagline: 'Next-gen protective coatings',
-    description: 'Revolutionary nano-material coatings for industrial applications, providing unprecedented durability and protection.',
+    name: 'Perfect Liquid',
+    tagline: 'Revolutionary nano-material coatings',
+    description: 'Next-generation nano-material coatings for retail and industrial applications, providing unprecedented durability and protection. Transforming surface protection across multiple industries.',
     category: 'nanotech',
     stage: 'growth',
-    founded: '2020',
-    teamSize: 32,
+    founded: '2021',
     metrics: {
-      revenue: '$8M ARR',
-      users: '200+ Industrial Clients',
-      growth: '150% YoY'
+      users: '100+ Industrial Clients',
+      growth: '180% YoY'
     },
-    technologies: ['Nanotechnology', 'Material Science', 'IoT Sensors'],
+    technologies: ['Nanotechnology', 'Material Science', 'Industrial Coatings', 'Retail Solutions'],
     featured: true
   },
   {
     id: '4',
-    name: 'VitalBlend Naturals',
-    tagline: 'Science-backed natural supplements',
-    description: 'Premium anti-aging supplements developed through cutting-edge research in longevity and cellular health.',
+    name: 'AtemaBio',
+    tagline: 'Natural anti-aging breakthrough',
+    description: 'Unique natural anti-aging supplement developed through cutting-edge research. Scientifically formulated for optimal cellular health and longevity with international distribution.',
     category: 'consumer',
     stage: 'scale',
     founded: '2019',
-    teamSize: 52,
     metrics: {
-      revenue: '$18M ARR',
-      users: '500K+ Customers',
-      growth: '120% YoY'
+      users: '500+ Clients',
+      growth: '20+ Countries'
     },
-    technologies: ['Biotech', 'E-commerce', 'Supply Chain Tech'],
+    technologies: ['Biotech', 'Nutraceuticals', 'E-commerce', 'Supply Chain'],
     featured: false
   },
   {
     id: '5',
-    name: 'Cosmic Academy',
-    tagline: 'Astrology meets education',
-    description: 'Professional astrology education platform combining ancient wisdom with modern learning technologies.',
+    name: 'AstroForYou School',
+    tagline: 'Professional astrology education',
+    description: 'Comprehensive astrology education platform combining ancient wisdom with modern teaching methodologies. Building a global community of professional astrologers.',
     category: 'education',
-    stage: 'mvp',
-    founded: '2023',
-    teamSize: 12,
+    stage: 'growth',
+    founded: '2022',
     metrics: {
-      users: '10K+ Students',
-      growth: 'Pre-revenue'
+      users: '100+ Students',
+      growth: '150% YoY'
     },
-    technologies: ['EdTech', 'Mobile Apps', 'Community Platform'],
+    technologies: ['EdTech', 'Online Learning', 'Community Platform', 'Mobile Apps'],
     featured: false
   },
   {
     id: '6',
-    name: 'PetGuard Health',
-    tagline: 'Smart health monitoring for pets',
-    description: 'IoT-enabled pet health devices providing real-time monitoring and predictive health alerts for pet owners.',
-    category: 'consumer',
-    stage: 'growth',
-    founded: '2022',
-    teamSize: 18,
+    name: 'GenieX Lab',
+    tagline: 'AI research laboratory',
+    description: 'Cutting-edge AI research laboratory focused on developing next-generation artificial intelligence solutions for enterprise and consumer applications.',
+    category: 'research',
+    stage: 'ideation',
+    founded: '2024',
     metrics: {
-      revenue: '$3M ARR',
-      users: '50K+ Pet Owners',
-      growth: '300% YoY'
+      growth: 'R&D Phase',
+      users: 'Research Stage'
     },
-    technologies: ['IoT', 'Mobile Apps', 'AI/ML'],
+    technologies: ['AI/ML', 'Deep Learning', 'Neural Networks', 'Research'],
     featured: false
   },
   {
     id: '7',
-    name: 'OncoGenix Research',
-    tagline: 'Breakthrough cancer therapeutics',
-    description: 'Developing novel immunotherapy approaches for hard-to-treat cancers using proprietary molecular targeting.',
-    category: 'research',
-    stage: 'mvp',
-    founded: '2023',
-    teamSize: 15,
+    name: 'Domain Analyser',
+    tagline: 'AI-powered domain intelligence platform',
+    description: 'Advanced AI platform for analyzing and valuing domain names. Managing a premium portfolio while providing domain intelligence services to investors.',
+    category: 'saas',
+    stage: 'growth',
+    founded: '2021',
     metrics: {
-      users: 'Phase II Trials',
-      growth: 'R&D Stage'
+      users: '80+ Premium Domains',
+      growth: '200% Portfolio Growth'
     },
-    technologies: ['Biotech', 'Immunotherapy', 'Clinical Research'],
+    technologies: ['AI/ML', 'Domain Analysis', 'SaaS', 'Investment Tech'],
     featured: true
   },
   {
     id: '8',
-    name: 'Quantum Ledger',
-    tagline: 'Blockchain for enterprise',
-    description: 'Next-generation blockchain infrastructure for secure, scalable enterprise applications.',
+    name: 'Facility Unlimited',
+    tagline: 'Commercial real estate procurement',
+    description: 'Comprehensive sourcing and procurement platform for commercial real estate needs. Streamlining facility management with access to exclusive brands and suppliers.',
     category: 'saas',
-    stage: 'ideation',
-    founded: '2024',
-    teamSize: 8,
+    stage: 'scale',
+    founded: '2020',
     metrics: {
-      growth: 'Prototype Phase'
+      users: '90+ Clients',
+      growth: '30+ Unique Brands'
     },
-    technologies: ['Blockchain', 'Cryptography', 'Distributed Systems'],
+    technologies: ['PropTech', 'Supply Chain', 'E-commerce', 'B2B Platform'],
     featured: false
+  },
+  {
+    id: '9',
+    name: 'MPI Suppliers Group',
+    tagline: 'Military and industrial supply chain solutions',
+    description: 'Strategic sourcing and supply chain management for military and industrial complexes across West and East Africa. Providing critical infrastructure and equipment solutions.',
+    category: 'saas',
+    stage: 'scale',
+    founded: '2018',
+    metrics: {
+      users: 'Government Contracts',
+      growth: 'West & East Africa'
+    },
+    technologies: ['Supply Chain', 'Logistics', 'Defense Tech', 'Industrial Solutions'],
+    featured: true
   }
 ]

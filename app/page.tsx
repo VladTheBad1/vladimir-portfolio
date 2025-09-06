@@ -1,4 +1,5 @@
 import { Navigation } from '@/components/layout/navigation'
+import { NewsletterForm } from '@/components/features/newsletter-form'
 
 export default function HomePage() {
   return (
@@ -23,7 +24,7 @@ export default function HomePage() {
               <p className="text-base md:text-lg font-sans text-gray-600 leading-relaxed max-w-2xl mx-auto mt-12">
                 Until the 2000s, the study of digital transformation (now known as innovation) was
                 the same as the study of human potential (now known as creativity).
-                Vladimir places a human's lived experience into the context of an enormous,
+                Vladimir places a human&apos;s lived experience into the context of an enormous,
                 endlessly evolving universe.
               </p>
             </div>
@@ -130,16 +131,16 @@ export default function HomePage() {
             <div className="space-y-20">
               <div>
                 <p className="text-2xl md:text-3xl font-serif leading-relaxed text-gray-700">
-                  "Innovation is not about predicting the future—<br />
-                  it's about creating it."
+                  &quot;Innovation is not about predicting the future—<br />
+                  it&apos;s about creating it.&quot;
                 </p>
                 <p className="text-sm font-sans uppercase tracking-wider text-gray-500 mt-4">On Vision</p>
               </div>
               
               <div>
                 <p className="text-2xl md:text-3xl font-serif leading-relaxed text-gray-700">
-                  "Every impossible idea is just waiting<br />
-                  for the right algorithm."
+                  &quot;Every impossible idea is just waiting<br />
+                  for the right algorithm.&quot;
                 </p>
                 <p className="text-sm font-sans uppercase tracking-wider text-gray-500 mt-4">On Technology</p>
               </div>
@@ -157,8 +158,8 @@ export default function HomePage() {
             </h2>
             
             <p className="text-base md:text-lg font-sans text-gray-600 leading-relaxed max-w-2xl mx-auto mb-16">
-              The future is not predetermined. It's a canvas waiting for bold strokes.
-              Let's paint it together.
+              The future is not predetermined. It&apos;s a canvas waiting for bold strokes.
+              Let&apos;s paint it together.
             </p>
             
             <div className="space-y-8">
@@ -181,6 +182,13 @@ export default function HomePage() {
               </div>
             </div>
             </div>
+          </div>
+        </section>
+
+        {/* Newsletter */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <NewsletterForm />
           </div>
         </section>
 

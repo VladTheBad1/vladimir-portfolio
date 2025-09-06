@@ -9,7 +9,6 @@ export interface Venture {
   category: VentureCategory
   stage: VentureStage
   founded: string
-  teamSize: number
   metrics: {
     revenue?: string
     users?: string

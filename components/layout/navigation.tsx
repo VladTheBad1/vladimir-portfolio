@@ -18,14 +18,23 @@ export function Navigation() {
             <Link href="/ai-lab" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
               AI LAB
             </Link>
+            <Link href="/analytics" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
+              ANALYTICS
+            </Link>
             <Link href="/global-intelligence" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
               GLOBAL INTEL
             </Link>
             <Link href="/leadership" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
               LEADERSHIP
             </Link>
+            <Link href="/insights" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
+              INSIGHTS
+            </Link>
             <Link href="/investor" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
               INVESTOR
+            </Link>
+            <Link href="/contact" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
+              CONTACT
             </Link>
           </div>
         </div>

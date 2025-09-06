@@ -8,7 +8,6 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { 
   Sparkles, 
-  Zap, 
   Target, 
   TrendingUp, 
   Users, 

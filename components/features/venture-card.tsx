@@ -50,11 +50,7 @@ export function VentureCard({ venture, onClick }: VentureCardProps) {
         <div className="flex items-center gap-4 text-xs text-gray-700">
           <div className="flex items-center gap-1">
             <Calendar className="h-3 w-3" />
-            <span>{venture.founded}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Users className="h-3 w-3" />
-            <span>{venture.teamSize} team</span>
+            <span>Founded {venture.founded}</span>
           </div>
         </div>
         
