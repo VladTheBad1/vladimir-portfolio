@@ -131,7 +131,13 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     const handleKeyDown = interactive ? (e: React.KeyboardEvent<HTMLDivElement>) => {
       if ((e.key === 'Enter' || e.key === ' ') && !disabled && !loading) {
         e.preventDefault()
-        onClick?.(e as React.MouseEvent<HTMLDivElement>)
+        // Create a synthetic click event for keyboard activation
+        const syntheticEvent = new MouseEvent('click', {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+        })
+        e.currentTarget.dispatchEvent(syntheticEvent)
       }
     } : undefined
     

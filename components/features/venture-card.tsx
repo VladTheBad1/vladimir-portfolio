@@ -4,7 +4,7 @@ import React from 'react'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Venture, STAGE_LABELS } from '@/types/venture'
-import { TrendingUp, Users, Calendar } from 'lucide-react'
+import { TrendingUp, Calendar } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface VentureCardProps {

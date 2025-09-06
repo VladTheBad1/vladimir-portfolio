@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { StructuredData } from "@/components/seo/structured-data";
+import { Navigation } from "@/components/layout/navigation";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -103,6 +104,7 @@ export default function RootLayout({
         className={`${inter.variable} font-sans antialiased bg-white text-gray-900`}
       >
         <div className="min-h-screen">
+          <Navigation />
           {children}
         </div>
       </body>

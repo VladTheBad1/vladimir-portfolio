@@ -1,10 +1,8 @@
-import { Navigation } from '@/components/layout/navigation'
 import { NewsletterForm } from '@/components/features/newsletter-form'
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white text-gray-800">
-      <Navigation />
       
       <main>
         {/* Hero - Co-Star Style Centered */}

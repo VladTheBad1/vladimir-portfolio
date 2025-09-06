@@ -1,11 +1,10 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Navigation } from '@/components/layout/navigation'
-import { H1, Lead, Text } from '@/components/ui/typography'
-import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
 import { 
   Sparkles, 
   Target, 
@@ -19,421 +18,570 @@ import {
   CheckCircle,
   RefreshCw,
   Lightbulb,
-  Search,
-  Shield,
-  Globe
+  Building,
+  Globe,
+  Download,
+  Save,
+  X,
+  Plus,
+  AlertCircle,
+  ArrowRight
 } from 'lucide-react'
-import { cn } from '@/lib/utils'
-
-type GenerationPhase = 'ideation' | 'validation' | 'business-model' | 'mvp-blueprint' | 'complete'
-
-interface GeneratedVenture {
-  name: string
-  tagline: string
-  problem: string
-  solution: string
-  targetMarket: string
-  marketSize: string
-  businessModel: string
-  competitiveAdvantage: string
-  mvpFeatures: string[]
-  timeToMarket: string
-  estimatedRevenue: string
-  teamNeeded: string[]
-}
-
-const sampleVentures: GeneratedVenture[] = [
-  {
-    name: "HealthPulse AI",
-    tagline: "Predictive health monitoring for preventive care",
-    problem: "70% of chronic diseases are preventable but go undetected until symptoms appear",
-    solution: "AI-powered wearable analysis that predicts health issues 6 months before symptoms",
-    targetMarket: "Health-conscious professionals aged 35-55",
-    marketSize: "$18.5B TAM in preventive healthcare",
-    businessModel: "B2C subscription ($29/month) + B2B2C insurance partnerships",
-    competitiveAdvantage: "Proprietary ML models trained on 10M+ health records",
-    mvpFeatures: [
-      "Real-time biometric monitoring",
-      "AI health predictions",
-      "Doctor consultation booking",
-      "Personalized health plans"
-    ],
-    timeToMarket: "90 days",
-    estimatedRevenue: "$5M ARR Year 1",
-    teamNeeded: ["ML Engineer", "Health Data Scientist", "Mobile Developer", "Medical Advisor"]
-  },
-  {
-    name: "EcoChain Markets",
-    tagline: "Blockchain-verified sustainable supply chains",
-    problem: "83% of consumers want transparency in product sustainability but can't verify claims",
-    solution: "Blockchain platform that tracks and verifies sustainable practices from source to shelf",
-    targetMarket: "Conscious consumers and sustainable brands",
-    marketSize: "$125B sustainable products market",
-    businessModel: "SaaS for brands ($500-5000/month) + consumer app with premium features",
-    competitiveAdvantage: "First-mover in blockchain sustainability verification",
-    mvpFeatures: [
-      "Supply chain tracking",
-      "Sustainability scoring",
-      "QR code verification",
-      "Brand dashboard"
-    ],
-    timeToMarket: "120 days",
-    estimatedRevenue: "$8M ARR Year 1",
-    teamNeeded: ["Blockchain Developer", "Supply Chain Expert", "Sales Lead", "Sustainability Consultant"]
-  }
-]
+import { generateVentureIdea, generateBusinessModelCanvas, calculateValidationScore, generateVentureReport } from '@/lib/ai-venture-generator'
+import { VentureIdea, BusinessModelCanvas, VenturePrompt, ValidationCriteria, VentureStage } from '@/types/ai-lab'
 
 export default function AILabPage() {
+  const [currentStage, setCurrentStage] = useState<VentureStage>('ideation')
   const [isGenerating, setIsGenerating] = useState(false)
-  const [currentPhase, setCurrentPhase] = useState<GenerationPhase>('ideation')
-  const [generatedVenture, setGeneratedVenture] = useState<GeneratedVenture | null>(null)
-  const [selectedIndustry, setSelectedIndustry] = useState('')
+  const [ventureIdea, setVentureIdea] = useState<VentureIdea | null>(null)
+  const [businessCanvas, setBusinessCanvas] = useState<BusinessModelCanvas | null>(null)
+  const [savedVentures, setSavedVentures] = useState<VentureIdea[]>([])
+  const [showCanvas, setShowCanvas] = useState(false)
+  
+  const [prompt, setPrompt] = useState<VenturePrompt>({
+    industry: '',
+    technology: '',
+    problemSpace: '',
+    targetAudience: '',
+    budget: '',
+    timeline: ''
+  })
 
-  const phases = [
-    { id: 'ideation', label: 'Ideation', icon: Lightbulb, duration: '5 min' },
-    { id: 'validation', label: 'Market Validation', icon: Search, duration: '10 min' },
-    { id: 'business-model', label: 'Business Model', icon: DollarSign, duration: '15 min' },
-    { id: 'mvp-blueprint', label: 'MVP Blueprint', icon: Rocket, duration: '10 min' },
-    { id: 'complete', label: 'Complete', icon: CheckCircle, duration: '40 min total' }
-  ]
+  const [validationCriteria, setValidationCriteria] = useState<ValidationCriteria>({
+    marketDemand: 75,
+    technicalFeasibility: 80,
+    competitiveAdvantage: 70,
+    scalability: 85,
+    profitability: 75,
+    teamCapability: 65
+  })
 
   const industries = [
-    'HealthTech', 'FinTech', 'EdTech', 'SaaS', 
-    'E-commerce', 'CleanTech', 'AI/ML', 'Blockchain'
+    'Healthcare', 'Finance', 'Education', 'Retail', 'Real Estate',
+    'Transportation', 'Energy', 'Agriculture', 'Entertainment', 'Sustainability'
   ]
 
-  const generateVenture = () => {
+  const technologies = [
+    'AI/ML', 'Blockchain', 'IoT', 'VR/AR', 'Robotics',
+    'Quantum Computing', 'Biotech', 'Nanotech', '5G', 'Edge Computing'
+  ]
+
+  const handleGenerateIdea = async () => {
     setIsGenerating(true)
-    setCurrentPhase('ideation')
+    setCurrentStage('validation')
     
-    // Simulate generation phases
-    const phaseSequence: GenerationPhase[] = ['ideation', 'validation', 'business-model', 'mvp-blueprint', 'complete']
-    
-    phaseSequence.forEach((phase, index) => {
-      setTimeout(() => {
-        setCurrentPhase(phase)
-        if (phase === 'complete') {
-          setGeneratedVenture(sampleVentures[Math.floor(Math.random() * sampleVentures.length)])
-          setIsGenerating(false)
-        }
-      }, index * 1500)
-    })
+    try {
+      const idea = await generateVentureIdea(prompt)
+      setVentureIdea(idea)
+      
+      const canvas = generateBusinessModelCanvas(idea)
+      setBusinessCanvas(canvas)
+      
+      setCurrentStage('planning')
+    } catch (error) {
+      console.error('Failed to generate venture:', error)
+    } finally {
+      setIsGenerating(false)
+    }
+  }
+
+  const handleSaveVenture = () => {
+    if (ventureIdea) {
+      setSavedVentures([...savedVentures, ventureIdea])
+      // Reset for new venture
+      setVentureIdea(null)
+      setBusinessCanvas(null)
+      setCurrentStage('ideation')
+      setPrompt({
+        industry: '',
+        technology: '',
+        problemSpace: '',
+        targetAudience: '',
+        budget: '',
+        timeline: ''
+      })
+    }
+  }
+
+  const handleExportReport = () => {
+    if (ventureIdea && businessCanvas) {
+      const report = generateVentureReport(ventureIdea, businessCanvas)
+      const blob = new Blob([report], { type: 'text/markdown' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `${ventureIdea.name.replace(/\s+/g, '-').toLowerCase()}-report.md`
+      a.click()
+    }
+  }
+
+  const getStageIcon = (stage: VentureStage) => {
+    const icons = {
+      ideation: Lightbulb,
+      validation: Target,
+      planning: Brain,
+      building: Building,
+      launching: Rocket
+    }
+    const Icon = icons[stage]
+    return <Icon className="h-5 w-5" />
   }
 
   return (
-    <>
-      <Navigation />
-      <main className="min-h-screen pt-24 bg-white">
-        {/* Hero Section */}
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-20">
-          <div className="text-center max-w-4xl mx-auto">
-            <Badge variant="primary" className="mb-4">
-              <Sparkles className="h-3 w-3 mr-1" />
-              AI-Powered Innovation
-            </Badge>
-            <H1 gradient className="mb-6">
-              Venture Creation Laboratory
-            </H1>
-            <Lead className="mb-8">
-              Transform ideas into venture-ready companies in under 24 hours
-            </Lead>
-            
-            {/* Key Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
-              <Card variant="default" hover={false}>
-                <CardContent className="p-6">
-                  <div className="text-3xl font-bold text-gray-900 mb-2">365</div>
-                  <Text className="text-sm text-gray-600">Companies Per Year</Text>
-                </CardContent>
-              </Card>
-              <Card variant="default" hover={false}>
-                <CardContent className="p-6">
-                  <div className="text-3xl font-bold text-gray-900 mb-2">40min</div>
-                  <Text className="text-sm text-gray-600">Concept to Blueprint</Text>
-                </CardContent>
-              </Card>
-              <Card variant="default" hover={false}>
-                <CardContent className="p-6">
-                  <div className="text-3xl font-bold text-gray-900 mb-2">87%</div>
-                  <Text className="text-sm text-gray-600">Market Validation Rate</Text>
-                </CardContent>
-              </Card>
-            </div>
+    <main className="min-h-screen pt-24 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        {/* Header */}
+        <div className="mb-12">
+          <div className="flex items-center gap-3 mb-4">
+            <Sparkles className="h-8 w-8 text-primary-600" />
+            <h1 className="text-4xl font-bold text-gray-900">AI Venture Lab</h1>
           </div>
+          <p className="text-lg text-gray-700">
+            Generate, validate, and launch venture ideas in minutes using AI
+          </p>
         </div>
 
-        {/* Generation Interface */}
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pb-20">
-          <div className="max-w-6xl mx-auto">
-            {!generatedVenture ? (
-              <Card variant="default" hover={false}>
-                <CardHeader className="text-center pb-8">
-                  <CardTitle className="text-2xl mb-2">Generate Your Next Venture</CardTitle>
+        {/* Progress Stages */}
+        <div className="flex items-center justify-between mb-8 p-4 bg-white rounded-lg shadow-sm">
+          {(['ideation', 'validation', 'planning', 'building', 'launching'] as VentureStage[]).map((stage, index) => (
+            <div key={stage} className="flex items-center">
+              <div className={`flex items-center gap-2 ${
+                currentStage === stage ? 'text-primary-600' : 
+                index < ['ideation', 'validation', 'planning', 'building', 'launching'].indexOf(currentStage) ? 
+                'text-green-600' : 'text-gray-400'
+              }`}>
+                {getStageIcon(stage)}
+                <span className="text-sm font-medium capitalize">{stage}</span>
+              </div>
+              {index < 4 && <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />}
+            </div>
+          ))}
+        </div>
+
+        {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Panel - Input/Generation */}
+          <div className="lg:col-span-2 space-y-6">
+            {currentStage === 'ideation' && !ventureIdea && (
+              <Card className="bg-white">
+                <CardHeader>
+                  <CardTitle>Generate Your Next Venture</CardTitle>
                   <CardDescription>
-                    Select an industry or let AI surprise you with an innovative concept
+                    Tell me about your vision and I'll create a comprehensive venture plan
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-8">
-                  {/* Industry Selection */}
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Industry Focus
+                      </label>
+                      <select
+                        value={prompt.industry}
+                        onChange={(e) => setPrompt({...prompt, industry: e.target.value})}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      >
+                        <option value="">Select an industry</option>
+                        {industries.map(ind => (
+                          <option key={ind} value={ind}>{ind}</option>
+                        ))}
+                      </select>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Core Technology
+                      </label>
+                      <select
+                        value={prompt.technology}
+                        onChange={(e) => setPrompt({...prompt, technology: e.target.value})}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      >
+                        <option value="">Select a technology</option>
+                        {technologies.map(tech => (
+                          <option key={tech} value={tech}>{tech}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-3 block">
-                      Choose Industry (Optional)
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Problem to Solve
                     </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                      {industries.map((industry) => (
-                        <button
-                          key={industry}
-                          onClick={() => setSelectedIndustry(industry === selectedIndustry ? '' : industry)}
-                          className={cn(
-                            "px-4 py-2 rounded-lg border border-transparent transition-all",
-                            selectedIndustry === industry
-                              ? "bg-primary-500 text-white border-primary-500"
-                              : "bg-gray-100 text-gray-700 hover:border-gray-600"
-                          )}
-                        >
-                          {industry}
-                        </button>
-                      ))}
+                    <textarea
+                      value={prompt.problemSpace}
+                      onChange={(e) => setPrompt({...prompt, problemSpace: e.target.value})}
+                      placeholder="Describe the problem you want to solve..."
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      rows={3}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Target Audience
+                      </label>
+                      <Input
+                        value={prompt.targetAudience}
+                        onChange={(e) => setPrompt({...prompt, targetAudience: e.target.value})}
+                        placeholder="e.g., SMBs, Enterprises, Consumers"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Initial Budget
+                      </label>
+                      <select
+                        value={prompt.budget}
+                        onChange={(e) => setPrompt({...prompt, budget: e.target.value})}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      >
+                        <option value="">Select budget range</option>
+                        <option value="<$100K">Less than $100K</option>
+                        <option value="$100K-$500K">$100K - $500K</option>
+                        <option value="$500K-$1M">$500K - $1M</option>
+                        <option value="$1M-$5M">$1M - $5M</option>
+                        <option value=">$5M">More than $5M</option>
+                      </select>
                     </div>
                   </div>
 
-                  {/* Progress Phases */}
-                  {isGenerating && (
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <Text className="text-sm text-gray-600">Generation Progress</Text>
-                        <Badge variant="outline" className="text-xs">
-                          <Timer className="h-3 w-3 mr-1" />
-                          Est. 40 min
-                        </Badge>
-                      </div>
-                      <div className="space-y-3">
-                        {phases.map((phase, index) => {
-                          const Icon = phase.icon
-                          const isActive = phase.id === currentPhase
-                          const isComplete = phases.findIndex(p => p.id === currentPhase) > index
-                          
-                          return (
-                            <div
-                              key={phase.id}
-                              className={cn(
-                                "flex items-center gap-4 p-4 rounded-lg border transition-all",
-                                isActive ? "bg-gray-50 border-gray-200" : 
-                                isComplete ? "bg-gray-50 border-gray-300" :
-                                "bg-white/50 border-gray-200"
-                              )}
-                            >
-                              <div className={cn(
-                                "w-10 h-10 rounded-full flex items-center justify-center",
-                                isActive ? "bg-primary-500 text-white" :
-                                isComplete ? "bg-green-500 text-white" :
-                                "bg-gray-200 text-gray-600"
-                              )}>
-                                <Icon className="h-5 w-5" />
-                              </div>
-                              <div className="flex-1">
-                                <div className="font-medium text-gray-900">{phase.label}</div>
-                                <div className="text-xs text-gray-600">{phase.duration}</div>
-                              </div>
-                              {isActive && (
-                                <div className="flex items-center gap-2">
-                                  <RefreshCw className="h-4 w-4 text-gray-700 animate-spin" />
-                                  <span className="text-xs text-gray-700">Processing...</span>
-                                </div>
-                              )}
-                              {isComplete && (
-                                <CheckCircle className="h-5 w-5 text-green-400" />
-                              )}
-                            </div>
-                          )
-                        })}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Generate Button */}
-                  <div className="text-center pt-4">
-                    <Button
-                      size="lg"
-                      onClick={generateVenture}
-                      disabled={isGenerating}
-                      className="min-w-[280px] px-8 bg-black text-white hover:bg-gray-800 active:bg-gray-900 font-bold shadow-lg hover:shadow-xl transition-all"
-                    >
-                      {isGenerating ? (
-                        <>
-                          <RefreshCw className="h-5 w-5 mr-2 animate-spin" />
-                          Generating Venture...
-                        </>
-                      ) : (
-                        'Generate Venture'
-                      )}
-                    </Button>
-                    <Text className="text-xs text-gray-600 mt-3">
-                      Powered by GPT-4 and proprietary market analysis
-                    </Text>
-                  </div>
+                  <Button 
+                    onClick={handleGenerateIdea}
+                    disabled={!prompt.industry || !prompt.technology || isGenerating}
+                    variant="primary"
+                    className="w-full"
+                  >
+                    {isGenerating ? (
+                      <span className="flex items-center gap-2">
+                        <RefreshCw className="h-4 w-4 animate-spin" />
+                        Generating Venture Idea...
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-2">
+                        <Sparkles className="h-4 w-4" />
+                        Generate Venture Idea
+                      </span>
+                    )}
+                  </Button>
                 </CardContent>
               </Card>
-            ) : (
-              /* Generated Venture Display */
-              <div className="space-y-8">
-                <Card variant="venture">
+            )}
+
+            {ventureIdea && (
+              <>
+                <Card className="bg-white">
                   <CardHeader>
-                    <div className="flex items-start justify-between">
+                    <div className="flex items-center justify-between">
                       <div>
-                        <Badge variant="primary" className="mb-3">
-                          <CheckCircle className="h-3 w-3 mr-1" />
-                          Generated Successfully
-                        </Badge>
-                        <CardTitle className="text-3xl mb-2">{generatedVenture.name}</CardTitle>
-                        <CardDescription className="text-lg">{generatedVenture.tagline}</CardDescription>
+                        <CardTitle className="text-2xl">{ventureIdea.name}</CardTitle>
+                        <CardDescription className="text-base mt-1">
+                          {ventureIdea.tagline}
+                        </CardDescription>
                       </div>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => {
-                          setGeneratedVenture(null)
-                          setSelectedIndustry('')
-                        }}
-                      >
-                        <RefreshCw className="h-4 w-4 mr-1" />
-                        Generate Another
-                      </Button>
+                      <Badge variant="primary" className="text-lg px-3 py-1">
+                        {ventureIdea.validationScore}/100
+                      </Badge>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-6">
-                    {/* Problem & Solution */}
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <h3 className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
-                          <Target className="h-4 w-4" />
-                          Problem
-                        </h3>
-                        <Text className="text-gray-700">{generatedVenture.problem}</Text>
-                      </div>
-                      <div>
-                        <h3 className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
-                          <Lightbulb className="h-4 w-4" />
-                          Solution
-                        </h3>
-                        <Text className="text-gray-700">{generatedVenture.solution}</Text>
-                      </div>
-                    </div>
-
-                    {/* Market Info */}
-                    <div className="grid md:grid-cols-3 gap-6">
-                      <div>
-                        <h3 className="text-sm font-medium text-gray-700 mb-2">Target Market</h3>
-                        <Text className="text-gray-700">{generatedVenture.targetMarket}</Text>
-                      </div>
-                      <div>
-                        <h3 className="text-sm font-medium text-gray-700 mb-2">Market Size</h3>
-                        <Text className="text-gray-700">{generatedVenture.marketSize}</Text>
-                      </div>
-                      <div>
-                        <h3 className="text-sm font-medium text-gray-700 mb-2">Time to Market</h3>
-                        <Text className="text-gray-700">{generatedVenture.timeToMarket}</Text>
-                      </div>
-                    </div>
-
-                    {/* Business Model */}
                     <div>
-                      <h3 className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
-                        <DollarSign className="h-4 w-4" />
-                        Business Model
+                      <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                        <AlertCircle className="h-4 w-4 text-red-500" />
+                        Problem
                       </h3>
-                      <Text className="text-gray-700">{generatedVenture.businessModel}</Text>
-                      <Badge variant="outline" className="mt-2">
-                        {generatedVenture.estimatedRevenue}
-                      </Badge>
+                      <p className="text-gray-700">{ventureIdea.problem}</p>
                     </div>
 
-                    {/* Competitive Advantage */}
                     <div>
-                      <h3 className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
-                        <Shield className="h-4 w-4" />
-                        Competitive Advantage
+                      <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-500" />
+                        Solution
                       </h3>
-                      <Text className="text-gray-700">{generatedVenture.competitiveAdvantage}</Text>
+                      <p className="text-gray-700">{ventureIdea.solution}</p>
                     </div>
 
-                    {/* MVP Features */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="p-4 bg-gray-50 rounded-lg">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Target className="h-4 w-4 text-primary-600" />
+                          <span className="text-sm font-medium text-gray-900">Target Market</span>
+                        </div>
+                        <p className="text-sm text-gray-700">{ventureIdea.targetMarket}</p>
+                      </div>
+                      
+                      <div className="p-4 bg-gray-50 rounded-lg">
+                        <div className="flex items-center gap-2 mb-2">
+                          <TrendingUp className="h-4 w-4 text-primary-600" />
+                          <span className="text-sm font-medium text-gray-900">Market Size</span>
+                        </div>
+                        <p className="text-sm text-gray-700">{ventureIdea.marketSize}</p>
+                      </div>
+                    </div>
+
                     <div>
-                      <h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
-                        <Rocket className="h-4 w-4" />
-                        MVP Features
-                      </h3>
-                      <div className="grid sm:grid-cols-2 gap-2">
-                        {generatedVenture.mvpFeatures.map((feature, index) => (
+                      <h3 className="font-semibold text-gray-900 mb-2">Competitive Advantage</h3>
+                      <p className="text-gray-700">{ventureIdea.competitiveAdvantage}</p>
+                    </div>
+
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-2">Revenue Model</h3>
+                      <p className="text-gray-700">{ventureIdea.revenueModel}</p>
+                    </div>
+
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-3">MVP Features</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        {ventureIdea.mvpFeatures.map((feature, index) => (
                           <div key={index} className="flex items-center gap-2">
-                            <ChevronRight className="h-4 w-4 text-gray-700" />
-                            <Text className="text-gray-700">{feature}</Text>
+                            <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
+                            <span className="text-sm text-gray-700">{feature}</span>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    {/* Team Needed */}
                     <div>
-                      <h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
-                        <Users className="h-4 w-4" />
-                        Team Requirements
-                      </h3>
+                      <h3 className="font-semibold text-gray-900 mb-2">Tech Stack</h3>
                       <div className="flex flex-wrap gap-2">
-                        {generatedVenture.teamNeeded.map((role) => (
-                          <Badge key={role} variant="outline" className="px-3 py-1">
-                            {role}
-                          </Badge>
+                        {ventureIdea.techStack.map((tech) => (
+                          <Badge key={tech} variant="outline">{tech}</Badge>
                         ))}
                       </div>
                     </div>
 
-                    {/* Action Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
-                      <Button size="lg" className="flex-1">
-                        <Rocket className="h-5 w-5 mr-2" />
-                        Start Building This Venture
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <div className="flex items-center gap-2 mb-2">
+                          <DollarSign className="h-4 w-4 text-green-600" />
+                          <span className="text-sm font-medium text-gray-900">Investment Needed</span>
+                        </div>
+                        <p className="text-lg font-bold text-green-700">{ventureIdea.investmentNeeded}</p>
+                      </div>
+                      
+                      <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <div className="flex items-center gap-2 mb-2">
+                          <TrendingUp className="h-4 w-4 text-blue-600" />
+                          <span className="text-sm font-medium text-gray-900">Potential ROI</span>
+                        </div>
+                        <p className="text-lg font-bold text-blue-700">{ventureIdea.potentialROI}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-3">
+                      <Button onClick={() => setShowCanvas(!showCanvas)} variant="outline">
+                        {showCanvas ? 'Hide' : 'Show'} Business Canvas
                       </Button>
-                      <Button variant="outline" size="lg" className="flex-1">
-                        <Brain className="h-5 w-5 mr-2" />
-                        Get Detailed Analysis
+                      <Button onClick={handleExportReport} variant="outline">
+                        <Download className="h-4 w-4 mr-2" />
+                        Export Report
+                      </Button>
+                      <Button onClick={handleSaveVenture} variant="primary">
+                        <Save className="h-4 w-4 mr-2" />
+                        Save Venture
                       </Button>
                     </div>
                   </CardContent>
                 </Card>
 
-                {/* Process Overview */}
-                <Card variant="default" hover={false}>
-                  <CardHeader>
-                    <CardTitle className="text-xl">The AI Generation Process</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid md:grid-cols-4 gap-4">
-                      {[
-                        { icon: Brain, title: 'Pattern Recognition', desc: 'Analyze 10,000+ successful ventures' },
-                        { icon: Globe, title: 'Market Analysis', desc: 'Real-time market data validation' },
-                        { icon: TrendingUp, title: 'Growth Modeling', desc: 'Predictive revenue projections' },
-                        { icon: Rocket, title: 'Blueprint Creation', desc: 'Actionable implementation plan' }
-                      ].map((step, index) => {
-                        const Icon = step.icon
-                        return (
-                          <div key={index} className="text-center">
-                            <div className="w-12 h-12 rounded-full bg-primary-500/20 text-gray-700 flex items-center justify-center mx-auto mb-3">
-                              <Icon className="h-6 w-6" />
-                            </div>
-                            <h4 className="font-medium text-gray-900 mb-1">{step.title}</h4>
-                            <Text className="text-xs text-gray-600">{step.desc}</Text>
+                {showCanvas && businessCanvas && (
+                  <Card className="bg-white">
+                    <CardHeader>
+                      <CardTitle>Business Model Canvas</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-3 gap-4">
+                        <div className="space-y-4">
+                          <div className="p-3 bg-gray-50 rounded">
+                            <h4 className="font-semibold text-sm text-gray-900 mb-2">Key Partners</h4>
+                            <ul className="text-xs text-gray-700 space-y-1">
+                              {businessCanvas.keyPartners.map((item, i) => (
+                                <li key={i}>• {item}</li>
+                              ))}
+                            </ul>
                           </div>
-                        )
-                      })}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+                          <div className="p-3 bg-gray-50 rounded">
+                            <h4 className="font-semibold text-sm text-gray-900 mb-2">Key Activities</h4>
+                            <ul className="text-xs text-gray-700 space-y-1">
+                              {businessCanvas.keyActivities.map((item, i) => (
+                                <li key={i}>• {item}</li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="p-3 bg-gray-50 rounded">
+                            <h4 className="font-semibold text-sm text-gray-900 mb-2">Key Resources</h4>
+                            <ul className="text-xs text-gray-700 space-y-1">
+                              {businessCanvas.keyResources.map((item, i) => (
+                                <li key={i}>• {item}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                        
+                        <div className="space-y-4">
+                          <div className="p-3 bg-primary-50 rounded border border-primary-200">
+                            <h4 className="font-semibold text-sm text-gray-900 mb-2">Value Propositions</h4>
+                            <ul className="text-xs text-gray-700 space-y-1">
+                              {businessCanvas.valuePropositions.map((item, i) => (
+                                <li key={i}>• {item}</li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="p-3 bg-gray-50 rounded">
+                            <h4 className="font-semibold text-sm text-gray-900 mb-2">Customer Relationships</h4>
+                            <ul className="text-xs text-gray-700 space-y-1">
+                              {businessCanvas.customerRelationships.map((item, i) => (
+                                <li key={i}>• {item}</li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="p-3 bg-gray-50 rounded">
+                            <h4 className="font-semibold text-sm text-gray-900 mb-2">Channels</h4>
+                            <ul className="text-xs text-gray-700 space-y-1">
+                              {businessCanvas.channels.map((item, i) => (
+                                <li key={i}>• {item}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                        
+                        <div className="space-y-4">
+                          <div className="p-3 bg-gray-50 rounded">
+                            <h4 className="font-semibold text-sm text-gray-900 mb-2">Customer Segments</h4>
+                            <ul className="text-xs text-gray-700 space-y-1">
+                              {businessCanvas.customerSegments.map((item, i) => (
+                                <li key={i}>• {item}</li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="p-3 bg-red-50 rounded border border-red-200">
+                            <h4 className="font-semibold text-sm text-gray-900 mb-2">Cost Structure</h4>
+                            <ul className="text-xs text-gray-700 space-y-1">
+                              {businessCanvas.costStructure.map((item, i) => (
+                                <li key={i}>• {item}</li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="p-3 bg-green-50 rounded border border-green-200">
+                            <h4 className="font-semibold text-sm text-gray-900 mb-2">Revenue Streams</h4>
+                            <ul className="text-xs text-gray-700 space-y-1">
+                              {businessCanvas.revenueStreams.map((item, i) => (
+                                <li key={i}>• {item}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </>
             )}
           </div>
+
+          {/* Right Panel - Saved Ventures & Info */}
+          <div className="space-y-6">
+            <Card className="bg-gradient-to-br from-primary-50 to-white border-primary-100">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Brain className="h-5 w-5 text-primary-600" />
+                  How It Works
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm">
+                <div className="flex items-start gap-2">
+                  <Badge variant="outline" className="mt-0.5">1</Badge>
+                  <div>
+                    <p className="font-medium text-gray-900">Define Parameters</p>
+                    <p className="text-gray-700">Select industry, technology, and problem space</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Badge variant="outline" className="mt-0.5">2</Badge>
+                  <div>
+                    <p className="font-medium text-gray-900">AI Generation</p>
+                    <p className="text-gray-700">Our AI creates a comprehensive venture plan</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Badge variant="outline" className="mt-0.5">3</Badge>
+                  <div>
+                    <p className="font-medium text-gray-900">Validation</p>
+                    <p className="text-gray-700">Automatic scoring and feasibility analysis</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Badge variant="outline" className="mt-0.5">4</Badge>
+                  <div>
+                    <p className="font-medium text-gray-900">Export & Execute</p>
+                    <p className="text-gray-700">Download reports and start building</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {savedVentures.length > 0 && (
+              <Card className="bg-white">
+                <CardHeader>
+                  <CardTitle>Saved Ventures</CardTitle>
+                  <CardDescription>
+                    Your generated venture ideas
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {savedVentures.map((venture) => (
+                    <div key={venture.id} className="p-3 border border-gray-200 rounded-lg hover:shadow-md transition-shadow cursor-pointer">
+                      <div className="flex items-start justify-between mb-1">
+                        <h4 className="font-medium text-gray-900">{venture.name}</h4>
+                        <Badge variant={venture.validationScore >= 80 ? "primary" : "outline"} className="text-xs">
+                          {venture.validationScore}
+                        </Badge>
+                      </div>
+                      <p className="text-xs text-gray-700 mb-2">{venture.tagline}</p>
+                      <div className="flex items-center gap-2 text-xs text-gray-600">
+                        <span>{venture.investmentNeeded}</span>
+                        <span>•</span>
+                        <span>{venture.potentialROI}</span>
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            )}
+
+            <Card className="bg-white">
+              <CardHeader>
+                <CardTitle>AI Capabilities</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <div className="flex items-center gap-2 text-sm">
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                  <span className="text-gray-700">Market analysis & sizing</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                  <span className="text-gray-700">Competitive landscape</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                  <span className="text-gray-700">Revenue modeling</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                  <span className="text-gray-700">Tech stack recommendations</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                  <span className="text-gray-700">Risk assessment</span>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   )
 }

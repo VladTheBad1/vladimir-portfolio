@@ -4,26 +4,14 @@
  */
 
 import dynamic from 'next/dynamic'
-import { ComponentType, ReactNode } from 'react'
+import { ComponentType } from 'react'
 
 /**
  * Loading component shown while dynamic component is loading
  */
-const DefaultLoadingComponent = (): ReactNode => (
+const DefaultLoadingComponent = () => (
   <div className="flex items-center justify-center p-8">
     <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--color-brand-primary)] border-t-transparent" />
-  </div>
-)
-
-/**
- * Error component shown if dynamic import fails
- */
-const DefaultErrorComponent = ({ error }: { error?: Error }) => (
-  <div className="flex flex-col items-center justify-center p-8 text-center">
-    <p className="text-[var(--color-error-main)] mb-2">Failed to load component</p>
-    {error && (
-      <p className="text-[var(--color-neutral-400)] text-sm">{error.message}</p>
-    )}
   </div>
 )
 
@@ -34,27 +22,22 @@ export interface DynamicImportOptions {
   loading?: ComponentType
   error?: ComponentType<{ error?: Error }>
   ssr?: boolean
-  suspense?: boolean
 }
 
 /**
  * Create a dynamically imported component with loading and error states
  */
-export function createDynamicComponent<P = {}>(
+export function createDynamicComponent<P = object>(
   importFunc: () => Promise<{ default: ComponentType<P> }>,
   options: DynamicImportOptions = {}
 ) {
   const {
-    loading = DefaultLoadingComponent,
-    error = DefaultErrorComponent,
     ssr = true,
-    suspense = false,
   } = options
 
   return dynamic(importFunc, {
-    loading: () => <loading />,
+    loading: DefaultLoadingComponent,
     ssr,
-    suspense,
   })
 }
 
@@ -62,7 +45,7 @@ export function createDynamicComponent<P = {}>(
  * Preload a dynamic component
  */
 export async function preloadComponent(
-  importFunc: () => Promise<{ default: ComponentType<any> }>
+  importFunc: () => Promise<{ default: ComponentType<unknown> }>
 ) {
   try {
     await importFunc()
@@ -74,7 +57,7 @@ export async function preloadComponent(
 /**
  * Lazy load images with intersection observer
  */
-export function useLazyLoadImages(
+export function lazyLoadImages(
   imageSelector: string = 'img[data-lazy]',
   rootMargin: string = '50px'
 ) {
@@ -115,7 +98,7 @@ export function useLazyLoadImages(
  * Prefetch components based on user interaction
  */
 export function prefetchOnInteraction(
-  componentMap: Record<string, () => Promise<{ default: ComponentType<any> }>>,
+  componentMap: Record<string, () => Promise<{ default: ComponentType<unknown> }>>,
   triggerElement: HTMLElement | null,
   event: 'mouseenter' | 'focus' = 'mouseenter'
 ) {
@@ -132,11 +115,11 @@ export function prefetchOnInteraction(
 /**
  * Load component based on viewport visibility
  */
-export function loadWhenVisible<P = {}>(
+export function loadWhenVisible<P = object>(
   importFunc: () => Promise<{ default: ComponentType<P> }>,
   options: DynamicImportOptions & { rootMargin?: string } = {}
 ) {
-  const { rootMargin = '100px', ...dynamicOptions } = options
+  const { ...dynamicOptions } = options
   
   // Create a wrapper component that uses IntersectionObserver
   const Component = createDynamicComponent(importFunc, dynamicOptions)
@@ -156,7 +139,7 @@ export enum LoadPriority {
 }
 
 interface PriorityLoadConfig {
-  component: () => Promise<{ default: ComponentType<any> }>
+  component: () => Promise<{ default: ComponentType<unknown> }>
   priority: LoadPriority
 }
 
@@ -235,14 +218,14 @@ export const routeComponents = {
  */
 export const featureComponents = {
   // Heavy components that should be loaded on demand
-  ventureCard: createDynamicComponent(
-    () => import('@/components/features/venture-card'),
-    { ssr: false }
-  ),
-  modal: createDynamicComponent(
-    () => import('@/components/ui/modal'),
-    { ssr: false }
-  ),
+  // ventureCard: createDynamicComponent(
+  //   () => import('@/components/features/venture-card').then(mod => ({ default: mod.VentureCard })),
+  //   { ssr: false }
+  // ),
+  // modal: createDynamicComponent(
+  //   () => import('@/components/ui/modal').then(mod => ({ default: mod.Modal })),
+  //   { ssr: false }
+  // ),
 }
 
 /**
@@ -261,7 +244,7 @@ export function initializePerformanceOptimizations() {
   }
   
   // Lazy load images
-  useLazyLoadImages()
+  lazyLoadImages()
   
   // Prefetch routes on link hover
   const links = document.querySelectorAll('a[href^="/"]')
@@ -277,10 +260,10 @@ export function initializePerformanceOptimizations() {
   })
 }
 
-export default {
+const dynamicImports = {
   createDynamicComponent,
   preloadComponent,
-  useLazyLoadImages,
+  lazyLoadImages,
   prefetchOnInteraction,
   loadWhenVisible,
   PriorityLoader,
@@ -288,3 +271,5 @@ export default {
   featureComponents,
   initializePerformanceOptimizations,
 }
+
+export default dynamicImports

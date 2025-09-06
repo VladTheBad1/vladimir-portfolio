@@ -127,7 +127,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
       if ((e.key === 'Enter' || e.key === ' ') && !disabled && !loading) {
         e.preventDefault()
-        onClick?.(e as React.MouseEvent<HTMLButtonElement>)
+        // Create a synthetic click event for keyboard activation
+        const syntheticEvent = new MouseEvent('click', {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+        })
+        e.currentTarget.dispatchEvent(syntheticEvent)
       }
       props.onKeyDown?.(e)
     }

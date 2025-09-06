@@ -63,10 +63,10 @@ export default function ContactPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Let\'s Connect
+            Let&apos;s Connect
           </h1>
           <p className="text-lg text-gray-700">
-            Whether you\'re interested in partnership, investment, or just want to discuss innovation
+            Whether you&apos;re interested in partnership, investment, or just want to discuss innovation
           </p>
         </div>
 
@@ -77,7 +77,7 @@ export default function ContactPage() {
               <CardHeader>
                 <CardTitle>Send a Message</CardTitle>
                 <CardDescription>
-                  Fill out the form below and I\'ll get back to you as soon as possible
+                  Fill out the form below and I&apos;ll get back to you as soon as possible
                 </CardDescription>
               </CardHeader>
               <CardContent>

@@ -67,7 +67,6 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         colorScheme: 'dark',
-        reducedMotion: 'reduce',
       },
     },
   ],

@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { GlobalSearch } from '@/components/features/global-search'
 
 export function Navigation() {
   return (
@@ -36,6 +37,7 @@ export function Navigation() {
             <Link href="/contact" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
               CONTACT
             </Link>
+            <GlobalSearch />
           </div>
         </div>
       </div>

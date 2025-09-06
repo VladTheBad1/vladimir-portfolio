@@ -339,7 +339,7 @@ export const validationMessages = {
   max: (max: number) => `Must be no more than ${max}`,
 }
 
-export default {
+const accessibility = {
   srOnly,
   useFocusTrap,
   announce,
@@ -357,3 +357,5 @@ export default {
   loadingStates,
   validationMessages,
 }
+
+export default accessibility
