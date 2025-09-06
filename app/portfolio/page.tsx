@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState, useMemo } from 'react'
-import { Navigation } from '@/components/layout/navigation'
 import { VentureCard } from '@/components/features/venture-card'
 import { H1, Lead, Text } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
@@ -89,7 +88,6 @@ export default function PortfolioPage() {
 
   return (
     <>
-      <Navigation />
       <main className="min-h-screen pt-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-12">
           {/* Header */}

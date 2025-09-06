@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Navigation } from '@/components/layout/navigation'
 import { H1, Lead, Text, H2 } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
@@ -172,7 +171,6 @@ export default function InvestorPage() {
   if (!isAuthenticated) {
     return (
       <>
-        <Navigation />
         <main className="min-h-screen pt-24 flex items-center justify-center">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
             <Card variant="default" className="max-w-md mx-auto">
@@ -227,7 +225,6 @@ export default function InvestorPage() {
 
   return (
     <>
-      <Navigation />
       <main className="min-h-screen pt-24 bg-white">
         {/* Hero Section */}
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-12">

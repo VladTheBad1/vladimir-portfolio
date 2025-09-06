@@ -22,6 +22,12 @@ export function Navigation() {
             <Link href="/analytics" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
               ANALYTICS
             </Link>
+            <Link href="/timeline" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
+              TIMELINE
+            </Link>
+            <Link href="/meetings" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
+              MEETINGS
+            </Link>
             <Link href="/global-intelligence" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
               GLOBAL INTEL
             </Link>
@@ -30,6 +36,9 @@ export function Navigation() {
             </Link>
             <Link href="/insights" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
               INSIGHTS
+            </Link>
+            <Link href="/investors" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
+              INVESTORS
             </Link>
             <Link href="/investor" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
               INVESTOR
