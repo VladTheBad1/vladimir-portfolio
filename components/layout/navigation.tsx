@@ -43,6 +43,21 @@ export function Navigation() {
             <Link href="/investor" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
               INVESTOR
             </Link>
+            <Link href="/documents" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
+              DOCUMENTS
+            </Link>
+            <Link href="/financials" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
+              FINANCIALS
+            </Link>
+            <Link href="/reports" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
+              REPORTS
+            </Link>
+            <Link href="/strategy" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
+              STRATEGY
+            </Link>
+            <Link href="/communications" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
+              COMM
+            </Link>
             <Link href="/contact" className="text-xs font-sans uppercase tracking-wider text-gray-600 hover:text-gray-800 transition-colors">
               CONTACT
             </Link>
