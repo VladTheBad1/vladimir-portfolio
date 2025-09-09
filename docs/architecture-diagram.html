@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VP Venture Platform - Architecture Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #1a202c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+        .diagram-container {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            overflow-x: auto;
+        }
+        .section-title {
+            color: #2d3748;
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .legend-item {
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .legend-item h3 {
+            margin: 0 0 10px 0;
+            color: #2d3748;
+        }
+        .legend-item p {
+            margin: 0;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .tech-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .tech-card h4 {
+            color: #667eea;
+            margin: 0 0 15px 0;
+        }
+        .tech-card ul {
+            margin: 0;
+            padding-left: 20px;
+            color: #4a5568;
+        }
+        .tech-card li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 VP Venture Platform</h1>
+        <p class="subtitle">Complete Technical Architecture & System Design</p>
+
+        <!-- High-Level Architecture -->
+        <h2 class="section-title">High-Level System Architecture</h2>
+        <div class="diagram-container">
+            <div class="mermaid">
+graph TB
+    subgraph "Client Layer"
+        WEB[Web Application<br/>Next.js + React]
+        MOBILE[Mobile Apps<br/>React Native]
+        API_CLIENT[API Clients<br/>REST/GraphQL]
+    end
+
+    subgraph "API Gateway Layer"
+        GATEWAY[API Gateway<br/>Kong/AWS API GW]
+        AUTH[Authentication<br/>Auth0/JWT]
+        RATE[Rate Limiting]
+    end
+
+    subgraph "Application Services"
+        subgraph "Fund Operations"
+            DEAL[Deal Flow Service]
+            DD[Due Diligence Service]
+            PORT[Portfolio Service]
+        end
+        
+        subgraph "Intelligence"
+            AI[AI/ML Service]
+            ANALYTICS[Analytics Service]
+            MARKET[Market Intel Service]
+        end
+        
+        subgraph "Portfolio Platform"
+            RESOURCES[Resource Service]
+            CODEGEN[Code Gen Service]
+            DEPLOY[Deployment Service]
+        end
+        
+        subgraph "LP Management"
+            REPORTING[Reporting Service]
+            DOCS[Document Service]
+            COMM[Communication Service]
+        end
+    end
+
+    subgraph "Data Layer"
+        PG[(PostgreSQL<br/>Primary DB)]
+        REDIS[(Redis<br/>Cache)]
+        S3[(S3<br/>File Storage)]
+        ELASTIC[(ElasticSearch<br/>Search)]
+        SNOW[(Snowflake<br/>Data Warehouse)]
+    end
+
+    subgraph "External Services"
+        OPENAI[OpenAI API]
+        PITCH[PitchBook API]
+        CRUNCH[Crunchbase API]
+        BLOOMBERG[Bloomberg API]
+        STRIPE[Stripe API]
+        SENDGRID[SendGrid]
+    end
+
+    WEB --> GATEWAY
+    MOBILE --> GATEWAY
+    API_CLIENT --> GATEWAY
+    
+    GATEWAY --> AUTH
+    GATEWAY --> RATE
+    AUTH --> DEAL
+    AUTH --> DD
+    AUTH --> PORT
+    AUTH --> AI
+    AUTH --> ANALYTICS
+    AUTH --> MARKET
+    AUTH --> RESOURCES
+    AUTH --> CODEGEN
+    AUTH --> DEPLOY
+    AUTH --> REPORTING
+    AUTH --> DOCS
+    AUTH --> COMM
+    
+    DEAL --> PG
+    DEAL --> REDIS
+    DD --> PG
+    DD --> S3
+    PORT --> PG
+    AI --> SNOW
+    AI --> OPENAI
+    ANALYTICS --> SNOW
+    MARKET --> ELASTIC
+    MARKET --> PITCH
+    MARKET --> CRUNCH
+    MARKET --> BLOOMBERG
+    RESOURCES --> S3
+    CODEGEN --> OPENAI
+    DEPLOY --> S3
+    REPORTING --> SNOW
+    DOCS --> S3
+    COMM --> SENDGRID
+
+    classDef client fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+    classDef gateway fill:#fef3c7,stroke:#f59e0b,stroke-width:2px
+    classDef service fill:#d1fae5,stroke:#10b981,stroke-width:2px
+    classDef data fill:#fee2e2,stroke:#ef4444,stroke-width:2px
+    classDef external fill:#e5e7eb,stroke:#6b7280,stroke-width:2px
+    
+    class WEB,MOBILE,API_CLIENT client
+    class GATEWAY,AUTH,RATE gateway
+    class DEAL,DD,PORT,AI,ANALYTICS,MARKET,RESOURCES,CODEGEN,DEPLOY,REPORTING,DOCS,COMM service
+    class PG,REDIS,S3,ELASTIC,SNOW data
+    class OPENAI,PITCH,CRUNCH,BLOOMBERG,STRIPE,SENDGRID external
+            </div>
+        </div>
+
+        <!-- Data Flow Architecture -->
+        <h2 class="section-title">Data Flow Architecture</h2>
+        <div class="diagram-container">
+            <div class="mermaid">
+graph LR
+    subgraph "Data Sources"
+        DS1[Deal Submissions]
+        DS2[Market Data APIs]
+        DS3[Portfolio Metrics]
+        DS4[User Activities]
+        DS5[Document Uploads]
+    end
+
+    subgraph "Ingestion Layer"
+        STREAM[Kafka Stream]
+        BATCH[Batch ETL<br/>Apache Airflow]
+        REALTIME[Real-time<br/>Processing]
+    end
+
+    subgraph "Processing Layer"
+        TRANSFORM[dbt<br/>Transformation]
+        ML_PIPE[ML Pipeline<br/>SageMaker]
+        AGGREGATE[Aggregation<br/>Service]
+    end
+
+    subgraph "Storage Layer"
+        DW[Data Warehouse<br/>Snowflake]
+        LAKE[Data Lake<br/>S3]
+        FEATURE[Feature Store<br/>Redis]
+    end
+
+    subgraph "Serving Layer"
+        API_SERVE[API Services]
+        DASH[Dashboards<br/>Tableau]
+        REPORTS[Reports<br/>Generator]
+    end
+
+    DS1 --> STREAM
+    DS2 --> BATCH
+    DS3 --> STREAM
+    DS4 --> REALTIME
+    DS5 --> BATCH
+    
+    STREAM --> TRANSFORM
+    BATCH --> TRANSFORM
+    REALTIME --> AGGREGATE
+    
+    TRANSFORM --> DW
+    TRANSFORM --> ML_PIPE
+    ML_PIPE --> FEATURE
+    AGGREGATE --> DW
+    
+    DW --> API_SERVE
+    DW --> DASH
+    DW --> REPORTS
+    FEATURE --> API_SERVE
+    LAKE --> ML_PIPE
+
+    classDef source fill:#fce7f3,stroke:#ec4899,stroke-width:2px
+    classDef ingest fill:#ede9fe,stroke:#8b5cf6,stroke-width:2px
+    classDef process fill:#dcfce7,stroke:#22c55e,stroke-width:2px
+    classDef storage fill:#ffedd5,stroke:#fb923c,stroke-width:2px
+    classDef serve fill:#e0f2fe,stroke:#0ea5e9,stroke-width:2px
+    
+    class DS1,DS2,DS3,DS4,DS5 source
+    class STREAM,BATCH,REALTIME ingest
+    class TRANSFORM,ML_PIPE,AGGREGATE process
+    class DW,LAKE,FEATURE storage
+    class API_SERVE,DASH,REPORTS serve
+            </div>
+        </div>
+
+        <!-- Security Architecture -->
+        <h2 class="section-title">Security & Compliance Architecture</h2>
+        <div class="diagram-container">
+            <div class="mermaid">
+graph TB
+    subgraph "Security Perimeter"
+        WAF[Web Application<br/>Firewall]
+        DDoS[DDoS Protection<br/>CloudFlare]
+        IDS[Intrusion Detection<br/>System]
+    end
+
+    subgraph "Access Control"
+        MFA[Multi-Factor<br/>Authentication]
+        RBAC[Role-Based<br/>Access Control]
+        SSO[Single Sign-On<br/>SAML/OAuth]
+        IPWHITE[IP Whitelisting]
+    end
+
+    subgraph "Data Security"
+        ENCRYPT[Encryption<br/>AES-256]
+        TLS[TLS 1.3<br/>In Transit]
+        VAULT[Secrets Manager<br/>AWS KMS]
+        DLP[Data Loss<br/>Prevention]
+    end
+
+    subgraph "Compliance"
+        SOC2[SOC 2 Type II]
+        GDPR[GDPR<br/>Compliance]
+        SEC[SEC<br/>Regulations]
+        AUDIT[Audit Logs]
+    end
+
+    subgraph "Monitoring"
+        SIEM[SIEM<br/>Splunk]
+        ALERT[Alert System]
+        INCIDENT[Incident<br/>Response]
+    end
+
+    WAF --> MFA
+    DDoS --> MFA
+    IDS --> ALERT
+    
+    MFA --> RBAC
+    SSO --> RBAC
+    RBAC --> IPWHITE
+    
+    RBAC --> ENCRYPT
+    ENCRYPT --> TLS
+    TLS --> VAULT
+    VAULT --> DLP
+    
+    DLP --> SOC2
+    DLP --> GDPR
+    DLP --> SEC
+    
+    AUDIT --> SIEM
+    SIEM --> ALERT
+    ALERT --> INCIDENT
+
+    classDef security fill:#fef2f2,stroke:#dc2626,stroke-width:2px
+    classDef access fill:#f0f9ff,stroke:#0284c7,stroke-width:2px
+    classDef data fill:#f0fdf4,stroke:#16a34a,stroke-width:2px
+    classDef compliance fill:#fefce8,stroke:#ca8a04,stroke-width:2px
+    classDef monitor fill:#faf5ff,stroke:#9333ea,stroke-width:2px
+    
+    class WAF,DDoS,IDS security
+    class MFA,RBAC,SSO,IPWHITE access
+    class ENCRYPT,TLS,VAULT,DLP data
+    class SOC2,GDPR,SEC,AUDIT compliance
+    class SIEM,ALERT,INCIDENT monitor
+            </div>
+        </div>
+
+        <!-- Deployment Architecture -->
+        <h2 class="section-title">Deployment & Infrastructure Architecture</h2>
+        <div class="diagram-container">
+            <div class="mermaid">
+graph TB
+    subgraph "CI/CD Pipeline"
+        GIT[GitHub Repository]
+        CI[GitHub Actions<br/>CI Pipeline]
+        TEST[Automated Testing<br/>Jest/Cypress]
+        BUILD[Build & Package<br/>Docker]
+    end
+
+    subgraph "Container Orchestration"
+        K8S[Kubernetes<br/>EKS]
+        HELM[Helm Charts]
+        ISTIO[Istio<br/>Service Mesh]
+    end
+
+    subgraph "AWS Infrastructure"
+        subgraph "Compute"
+            ECS[ECS Fargate]
+            LAMBDA[Lambda Functions]
+            EC2[EC2 Instances]
+        end
+        
+        subgraph "Storage"
+            RDS[RDS PostgreSQL]
+            S3_DEPLOY[S3 Buckets]
+            EFS[EFS File System]
+        end
+        
+        subgraph "Network"
+            VPC[VPC]
+            ALB[Application<br/>Load Balancer]
+            CF[CloudFront CDN]
+        end
+    end
+
+    subgraph "Monitoring & Observability"
+        PROMETHEUS[Prometheus]
+        GRAFANA[Grafana]
+        ELK[ELK Stack]
+        XRAY[AWS X-Ray]
+    end
+
+    GIT --> CI
+    CI --> TEST
+    TEST --> BUILD
+    BUILD --> K8S
+    
+    K8S --> HELM
+    HELM --> ISTIO
+    ISTIO --> ECS
+    
+    ECS --> EC2
+    ECS --> LAMBDA
+    
+    EC2 --> RDS
+    EC2 --> S3_DEPLOY
+    LAMBDA --> S3_DEPLOY
+    
+    VPC --> ALB
+    ALB --> CF
+    
+    K8S --> PROMETHEUS
+    PROMETHEUS --> GRAFANA
+    ECS --> ELK
+    LAMBDA --> XRAY
+
+    classDef cicd fill:#ecfdf5,stroke:#059669,stroke-width:2px
+    classDef k8s fill:#eff6ff,stroke:#2563eb,stroke-width:2px
+    classDef aws fill:#fef3c7,stroke:#d97706,stroke-width:2px
+    classDef monitor fill:#f3f4f6,stroke:#4b5563,stroke-width:2px
+    
+    class GIT,CI,TEST,BUILD cicd
+    class K8S,HELM,ISTIO k8s
+    class ECS,LAMBDA,EC2,RDS,S3_DEPLOY,EFS,VPC,ALB,CF aws
+    class PROMETHEUS,GRAFANA,ELK,XRAY monitor
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <h2 class="section-title">Technology Stack Overview</h2>
+        <div class="tech-stack">
+            <div class="tech-card">
+                <h4>🎨 Frontend</h4>
+                <ul>
+                    <li>Next.js 14 (React Framework)</li>
+                    <li>TypeScript</li>
+                    <li>Tailwind CSS</li>
+                    <li>Framer Motion</li>
+                    <li>React Query</li>
+                    <li>Recharts/D3.js</li>
+                </ul>
+            </div>
+            
+            <div class="tech-card">
+                <h4>⚙️ Backend</h4>
+                <ul>
+                    <li>Node.js + Express</li>
+                    <li>GraphQL (Apollo Server)</li>
+                    <li>Python (ML Services)</li>
+                    <li>Go (Performance-critical)</li>
+                    <li>Prisma ORM</li>
+                    <li>Bull Queue</li>
+                </ul>
+            </div>
+            
+            <div class="tech-card">
+                <h4>🗄️ Data & Storage</h4>
+                <ul>
+                    <li>PostgreSQL (Primary)</li>
+                    <li>Redis (Cache)</li>
+                    <li>Elasticsearch (Search)</li>
+                    <li>Snowflake (Analytics)</li>
+                    <li>AWS S3 (Files)</li>
+                    <li>MongoDB (Documents)</li>
+                </ul>
+            </div>
+            
+            <div class="tech-card">
+                <h4>🤖 AI/ML</h4>
+                <ul>
+                    <li>OpenAI GPT-4 API</li>
+                    <li>Claude API</li>
+                    <li>AWS SageMaker</li>
+                    <li>TensorFlow/PyTorch</li>
+                    <li>scikit-learn</li>
+                    <li>Hugging Face</li>
+                </ul>
+            </div>
+            
+            <div class="tech-card">
+                <h4>☁️ Infrastructure</h4>
+                <ul>
+                    <li>AWS (Primary Cloud)</li>
+                    <li>Kubernetes (EKS)</li>
+                    <li>Docker</li>
+                    <li>Terraform (IaC)</li>
+                    <li>GitHub Actions (CI/CD)</li>
+                    <li>CloudFlare (CDN)</li>
+                </ul>
+            </div>
+            
+            <div class="tech-card">
+                <h4>🔌 Integrations</h4>
+                <ul>
+                    <li>Stripe (Payments)</li>
+                    <li>Auth0 (Authentication)</li>
+                    <li>SendGrid (Email)</li>
+                    <li>Twilio (SMS)</li>
+                    <li>Slack API</li>
+                    <li>Zoom API</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <h2 class="section-title">Architecture Components</h2>
+        <div class="legend">
+            <div class="legend-item">
+                <h3>🏢 Fund Operations</h3>
+                <p>Core VC operations including deal flow, due diligence, and portfolio management</p>
+            </div>
+            <div class="legend-item">
+                <h3>🧠 Intelligence Hub</h3>
+                <p>AI-powered insights, market intelligence, and predictive analytics</p>
+            </div>
+            <div class="legend-item">
+                <h3>🚀 Portfolio Platform</h3>
+                <p>Tools and resources for portfolio companies including AI code generation</p>
+            </div>
+            <div class="legend-item">
+                <h3>👥 LP Portal</h3>
+                <p>Secure investor relations, reporting, and communication platform</p>
+            </div>
+            <div class="legend-item">
+                <h3>🔐 Security Layer</h3>
+                <p>Enterprise-grade security, compliance, and data protection</p>
+            </div>
+            <div class="legend-item">
+                <h3>📊 Data Pipeline</h3>
+                <p>Real-time and batch data processing for analytics and ML</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#667eea',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#5a67d8',
+                lineColor: '#5a67d8',
+                secondaryColor: '#48bb78',
+                tertiaryColor: '#ed8936',
+                background: 'white',
+                mainBkg: '#667eea',
+                secondBkg: '#48bb78',
+                tertiaryBkg: '#ed8936'
+            }
+        });
+    </script>
+</body>
+</html>

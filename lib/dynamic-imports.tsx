@@ -206,11 +206,6 @@ export class PriorityLoader {
 export const routeComponents = {
   // Pages that should be dynamically imported
   portfolio: () => import('@/app/portfolio/page'),
-  aiLab: () => import('@/app/ai-lab/page'),
-  globalIntelligence: () => import('@/app/global-intelligence/page'),
-  leadership: () => import('@/app/leadership/page'),
-  vision: () => import('@/app/vision/page'),
-  investor: () => import('@/app/investor/page'),
 }
 
 /**

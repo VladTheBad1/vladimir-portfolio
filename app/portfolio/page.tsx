@@ -1,260 +1,261 @@
 'use client'
 
-import React, { useState, useMemo } from 'react'
-import { VentureCard } from '@/components/features/venture-card'
-import { H1, Lead, Text } from '@/components/ui/typography'
-import { Button } from '@/components/ui/button'
-import { ventures } from '@/data/ventures'
-import { VentureCategory, VentureStage, CATEGORY_LABELS, STAGE_LABELS } from '@/types/venture'
-import { Search, Filter, Grid3x3, List, TrendingUp, X } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import Link from 'next/link'
 
-type SortOption = 'featured' | 'newest' | 'stage' | 'category'
-type ViewMode = 'grid' | 'list'
+const ventures = [
+  {
+    id: 'vctronics',
+    name: 'VCTRONICS CORP',
+    tagline: 'PEMF patented technology for cancer research',
+    description: 'Revolutionary PEMF (Pulsed Electromagnetic Field) patented technology for research and development, specializing in cancer research applications. Currently in preclinical trials with global reach.',
+    year: '2020',
+    status: 'Active',
+    metrics: {
+      customers: '550+ Customers',
+      reach: '35 Countries',
+      stage: 'Preclinical Trials',
+      type: 'Patented Technology'
+    },
+    technologies: ['PEMF Technology', 'Medical Devices', 'Cancer Research', 'Clinical Trials']
+  },
+  {
+    id: 'verivox-ai',
+    name: 'VeriVox AI',
+    tagline: 'Legal audio transcription powered by AI',
+    description: 'Advanced AI-powered audio transcription platform specifically designed for legal professionals. MVP ready with cutting-edge accuracy for legal terminology and proceedings.',
+    year: '2023',
+    status: 'Active',
+    metrics: {
+      stage: 'MVP Ready',
+      funding: 'Seed Round',
+      focus: 'Legal Tech',
+      type: 'AI Platform'
+    },
+    technologies: ['AI/ML', 'Speech Recognition', 'Legal Tech', 'Cloud Computing']
+  },
+  {
+    id: 'perfect-liquid',
+    name: 'Perfect Liquid',
+    tagline: 'Revolutionary nano-material coatings',
+    description: 'Next-generation nano-material coatings for retail and industrial applications, providing unprecedented durability and protection. Transforming surface protection across multiple industries.',
+    year: '2021',
+    status: 'Active',
+    metrics: {
+      clients: '100+ Industrial Clients',
+      growth: '180% YoY',
+      coverage: 'Multi-Industry',
+      type: 'Nanotech'
+    },
+    technologies: ['Nanotechnology', 'Material Science', 'Industrial Coatings', 'Retail Solutions']
+  },
+  {
+    id: 'atemabio',
+    name: 'AtemaBio',
+    tagline: 'Natural anti-aging breakthrough',
+    description: 'Unique natural anti-aging supplement developed through cutting-edge research. Scientifically formulated for optimal cellular health and longevity with international distribution.',
+    year: '2019',
+    status: 'Active',
+    metrics: {
+      clients: '500+ Clients',
+      countries: '20+ Countries',
+      type: 'Nutraceuticals',
+      stage: 'Scale'
+    },
+    technologies: ['Biotech', 'Nutraceuticals', 'E-commerce', 'Supply Chain']
+  },
+  {
+    id: 'astroforyou',
+    name: 'AstroForYou School',
+    tagline: 'Professional astrology education',
+    description: 'Comprehensive astrology education platform combining ancient wisdom with modern teaching methodologies. Building a global community of professional astrologers.',
+    year: '2022',
+    status: 'Active',
+    metrics: {
+      students: '100+ Students',
+      growth: '150% YoY',
+      type: 'EdTech',
+      stage: 'Growth'
+    },
+    technologies: ['EdTech', 'Online Learning', 'Community Platform', 'Mobile Apps']
+  },
+  {
+    id: 'domain-analyser',
+    name: 'Domain Analyser',
+    tagline: 'AI-powered domain intelligence platform',
+    description: 'Advanced AI platform for analyzing and valuing domain names. Managing a premium portfolio while providing domain intelligence services to investors.',
+    year: '2021',
+    status: 'Active',
+    metrics: {
+      portfolio: '80+ Premium Domains',
+      growth: '200% Portfolio Growth',
+      type: 'SaaS',
+      stage: 'Growth'
+    },
+    technologies: ['AI/ML', 'Domain Analysis', 'SaaS', 'Investment Tech']
+  },
+  {
+    id: 'facility-unlimited',
+    name: 'Facility Unlimited',
+    tagline: 'Commercial real estate procurement',
+    description: 'Comprehensive sourcing and procurement platform for commercial real estate needs. Streamlining facility management with access to exclusive brands and suppliers.',
+    year: '2020',
+    status: 'Active',
+    metrics: {
+      clients: '90+ Clients',
+      brands: '30+ Unique Brands',
+      type: 'PropTech',
+      stage: 'Scale'
+    },
+    technologies: ['PropTech', 'Supply Chain', 'E-commerce', 'B2B Platform']
+  },
+  {
+    id: 'mpi-suppliers',
+    name: 'MPI Suppliers Group',
+    tagline: 'Military and industrial supply chain solutions',
+    description: 'Strategic sourcing and supply chain management for military and industrial complexes across West and East Africa. Providing critical infrastructure and equipment solutions.',
+    year: '2018',
+    status: 'Active',
+    metrics: {
+      type: 'Government Contracts',
+      coverage: 'West & East Africa',
+      stage: 'Scale',
+      focus: 'Defense & Industrial'
+    },
+    technologies: ['Supply Chain', 'Logistics', 'Defense Tech', 'Industrial Solutions']
+  },
+  {
+    id: 'geniex-lab',
+    name: 'GenieX Lab',
+    tagline: 'AI research laboratory',
+    description: 'Cutting-edge AI research laboratory focused on developing next-generation artificial intelligence solutions for enterprise and consumer applications.',
+    year: '2024',
+    status: 'R&D Phase',
+    metrics: {
+      stage: 'Research Phase',
+      focus: 'Next-Gen AI',
+      type: 'R&D Lab',
+      status: 'Ideation'
+    },
+    technologies: ['AI/ML', 'Deep Learning', 'Neural Networks', 'Research']
+  }
+]
 
 export default function PortfolioPage() {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategories, setSelectedCategories] = useState<VentureCategory[]>([])
-  const [selectedStages, setSelectedStages] = useState<VentureStage[]>([])
-  const [sortBy, setSortBy] = useState<SortOption>('featured')
-  const [viewMode, setViewMode] = useState<ViewMode>('grid')
-  const [showFilters, setShowFilters] = useState(false)
-
-  const filteredVentures = useMemo(() => {
-    let filtered = [...ventures]
-
-    // Search filter
-    if (searchQuery) {
-      filtered = filtered.filter(v => 
-        v.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        v.tagline.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        v.description.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    }
-
-    // Category filter
-    if (selectedCategories.length > 0) {
-      filtered = filtered.filter(v => selectedCategories.includes(v.category))
-    }
-
-    // Stage filter
-    if (selectedStages.length > 0) {
-      filtered = filtered.filter(v => selectedStages.includes(v.stage))
-    }
-
-    // Sorting
-    switch (sortBy) {
-      case 'featured':
-        filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0))
-        break
-      case 'newest':
-        filtered.sort((a, b) => parseInt(b.founded) - parseInt(a.founded))
-        break
-      case 'stage':
-        const stageOrder = ['exit', 'scale', 'growth', 'mvp', 'ideation']
-        filtered.sort((a, b) => stageOrder.indexOf(a.stage) - stageOrder.indexOf(b.stage))
-        break
-      case 'category':
-        filtered.sort((a, b) => a.category.localeCompare(b.category))
-        break
-    }
-
-    return filtered
-  }, [searchQuery, selectedCategories, selectedStages, sortBy])
-
-  const toggleCategory = (category: VentureCategory) => {
-    setSelectedCategories(prev =>
-      prev.includes(category)
-        ? prev.filter(c => c !== category)
-        : [...prev, category]
-    )
-  }
-
-  const toggleStage = (stage: VentureStage) => {
-    setSelectedStages(prev =>
-      prev.includes(stage)
-        ? prev.filter(s => s !== stage)
-        : [...prev, stage]
-    )
-  }
-
-  const clearFilters = () => {
-    setSearchQuery('')
-    setSelectedCategories([])
-    setSelectedStages([])
-  }
-
-  const hasActiveFilters = searchQuery || selectedCategories.length > 0 || selectedStages.length > 0
-
   return (
-    <>
-      <main className="min-h-screen pt-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-12">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <H1 gradient className="mb-4">Venture Portfolio</H1>
-            <Lead className="max-w-3xl mx-auto">
-              Building the future across {ventures.length} revolutionary companies
-            </Lead>
+    <div className="min-h-screen bg-white">
+      {/* Navigation - Portfolio Style */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex justify-between items-center">
+            <Link href="/" className="text-lg font-serif text-gray-900">
+              VP
+            </Link>
+            <div className="flex gap-8">
+              <Link href="/portfolio" className="text-sm uppercase tracking-wider text-gray-900 transition-colors">
+                Portfolio
+              </Link>
+              <Link href="/blog" className="text-sm uppercase tracking-wider text-gray-600 hover:text-gray-900 transition-colors">
+                Blog
+              </Link>
+              <Link href="/contact" className="text-sm uppercase tracking-wider text-gray-600 hover:text-gray-900 transition-colors">
+                Contact
+              </Link>
+            </div>
           </div>
+        </div>
+      </nav>
 
-          {/* Search and Controls */}
-          <div className="mb-8 space-y-4">
-            <div className="flex flex-col lg:flex-row gap-4">
-              {/* Search Bar */}
-              <div className="flex-1 relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-600" />
-                <input
-                  type="text"
-                  placeholder="Search ventures..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-gray-900 placeholder-gray-600 focus:outline-none focus:border-gray-500 transition-colors shadow-sm"
-                />
-              </div>
+      <main className="pt-20">
+        {/* Hero */}
+        <section className="py-20 border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl">
+              <h1 className="text-5xl font-serif font-light text-gray-900 mb-6">
+                Portfolio
+              </h1>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                9 active ventures spanning AI, healthcare, nanotechnology, and global markets.
+              </p>
+            </div>
+          </div>
+        </section>
 
-              {/* Action Buttons */}
-              <div className="flex gap-2">
-                <Button
-                  variant={showFilters ? 'primary' : 'outline'}
-                  onClick={() => setShowFilters(!showFilters)}
-                  className="min-w-[120px]"
-                >
-                  <Filter className="h-4 w-4 mr-2" />
-                  Filters
-                  {hasActiveFilters && (
-                    <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full bg-gray-800 text-white">
-                      {selectedCategories.length + selectedStages.length + (searchQuery ? 1 : 0)}
+        {/* Ventures Grid */}
+        <section className="py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {ventures.map((venture) => (
+                <article key={venture.id} className="border border-gray-200 border-opacity-0 hover:border-opacity-100 hover:shadow-lg p-6 transition-all duration-300 cursor-pointer">
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="text-sm text-gray-500">Founded {venture.year}</span>
+                    <span className={`px-2 py-1 text-xs rounded ${
+                      venture.status === 'Active' 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-blue-100 text-blue-800'
+                    }`}>
+                      {venture.status}
                     </span>
-                  )}
-                </Button>
+                  </div>
 
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as SortOption)}
-                  className="px-4 py-2 bg-white border-2 border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:border-gray-500 shadow-sm"
-                >
-                  <option value="featured">Featured First</option>
-                  <option value="newest">Newest First</option>
-                  <option value="stage">By Stage</option>
-                  <option value="category">By Category</option>
-                </select>
+                  <h2 className="text-2xl font-serif mb-2">{venture.name}</h2>
+                  <p className="text-gray-600 mb-4">{venture.tagline}</p>
+                  
+                  <p className="text-gray-600 text-sm mb-6">
+                    {venture.description}
+                  </p>
 
-                <div className="hidden sm:flex border-2 border-gray-300 rounded-lg overflow-hidden bg-white shadow-sm">
-                  <Button
-                    onClick={() => setViewMode('grid')}
-                    variant={viewMode === 'grid' ? 'primary' : 'ghost'}
-                    size="icon"
-                    className="rounded-none"
-                  >
-                    <Grid3x3 className="h-5 w-5" />
-                  </Button>
-                  <Button
-                    onClick={() => setViewMode('list')}
-                    variant={viewMode === 'list' ? 'primary' : 'ghost'}
-                    size="icon"
-                    className="rounded-none"
-                  >
-                    <List className="h-5 w-5" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Filter Panel */}
-            {showFilters && (
-              <div className="p-6 bg-gray-50 border-2 border-gray-200 rounded-lg space-y-4 shadow-sm">
-                {/* Categories */}
-                <div>
-                  <h3 className="text-sm font-medium text-gray-900 mb-3">Categories</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
-                      <Button
-                        key={key}
-                        onClick={() => toggleCategory(key as VentureCategory)}
-                        variant={selectedCategories.includes(key as VentureCategory) ? "primary" : "outline"}
-                        size="sm"
-                        className="rounded-full"
-                      >
-                        {label}
-                      </Button>
+                  {/* Metrics */}
+                  <div className="space-y-2 mb-6">
+                    {Object.entries(venture.metrics).map(([key, value]) => (
+                      <div key={key} className="flex justify-between text-sm">
+                        <span className="text-gray-500 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}:</span>
+                        <span className="text-gray-900 font-medium">{value}</span>
+                      </div>
                     ))}
                   </div>
-                </div>
 
-                {/* Stages */}
-                <div>
-                  <h3 className="text-sm font-medium text-gray-900 mb-3">Stages</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {Object.entries(STAGE_LABELS).map(([key, label]) => (
-                      <Button
-                        key={key}
-                        onClick={() => toggleStage(key as VentureStage)}
-                        variant={selectedStages.includes(key as VentureStage) ? "primary" : "outline"}
-                        size="sm"
-                        className="rounded-full"
+                  {/* Technologies */}
+                  <div className="flex flex-wrap gap-1">
+                    {venture.technologies.map((tech) => (
+                      <span 
+                        key={tech}
+                        className="px-2 py-1 bg-gray-100 text-gray-600 text-xs"
                       >
-                        {label}
-                      </Button>
+                        {tech}
+                      </span>
                     ))}
                   </div>
-                </div>
-
-                {hasActiveFilters && (
-                  <Button
-                    onClick={clearFilters}
-                    variant="ghost"
-                    size="sm"
-                    className="text-gray-700 hover:text-gray-900"
-                  >
-                    <X className="h-4 w-4 mr-1" />
-                    Clear all filters
-                  </Button>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Results Summary */}
-          <div className="mb-6 flex items-center justify-between">
-            <Text className="text-gray-700">
-              Showing {filteredVentures.length} of {ventures.length} ventures
-            </Text>
-            <div className="flex items-center gap-2">
-              <TrendingUp className="h-4 w-4 text-gray-700" />
-              <span className="text-sm text-gray-700">
-                Total Portfolio Value: <span className="text-gray-700 font-semibold">$100M+</span>
-              </span>
-            </div>
-          </div>
-
-          {/* Ventures Grid/List */}
-          {filteredVentures.length > 0 ? (
-            <div className={cn(
-              viewMode === 'grid'
-                ? "grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-                : "space-y-4"
-            )}>
-              {filteredVentures.map((venture) => (
-                <VentureCard
-                  key={venture.id}
-                  venture={venture}
-                  onClick={() => console.log('View venture:', venture.id)}
-                />
+                </article>
               ))}
             </div>
-          ) : (
-            <div className="text-center py-20">
-              <Text className="text-gray-700 mb-4">
-                No ventures found matching your criteria
-              </Text>
-              <Button variant="outline" onClick={clearFilters}>
-                Clear filters
-              </Button>
-            </div>
-          )}
-        </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl font-serif mb-6">Let's Build Something Together</h2>
+            <p className="text-xl text-gray-600 mb-8">
+              I'm always exploring new opportunities and partnerships.
+            </p>
+            <a 
+              href="mailto:contact@vladimirproskurov.com"
+              className="inline-block px-8 py-3 bg-gray-900 text-white hover:bg-gray-800 transition-colors"
+            >
+              Get in Touch
+            </a>
+          </div>
+        </section>
       </main>
-    </>
+
+      {/* Footer */}
+      <footer className="border-t border-gray-200 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-center text-sm text-gray-500">
+            © 2025 Vladimir Proskurov • Serial Entrepreneur & AI Innovator
+          </p>
+        </div>
+      </footer>
+    </div>
   )
 }

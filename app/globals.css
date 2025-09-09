@@ -17,6 +17,12 @@
   --color-gray-500: #666666;
 }
 
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --border: 214.3 31.8% 91.4%;
+}
+
 /* Co-Star Inspired Clean Design System */
 
 html {
@@ -229,6 +235,22 @@ body {
   }
 }
 
+/* Dropdown Animation */
+.animate-fadeIn {
+  animation: dropdownFadeIn 0.15s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Stark Grid */
 .grid-minimal {
   display: grid;
@@ -269,6 +291,52 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+/* Admin Page Styles */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.progress-bar {
+  background: linear-gradient(
+    90deg,
+    #667eea 0%,
+    #764ba2 25%,
+    #667eea 50%,
+    #764ba2 75%,
+    #667eea 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+.task-card {
+  transition: all 0.3s ease;
+}
+
+.task-card:hover {
+  transform: translateX(5px);
+}
+
+.drag-handle {
+  cursor: move;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.task-card:hover .drag-handle {
+  opacity: 0.5;
+}
+
+.drag-handle:hover {
+  opacity: 1 !important;
+}
+
+.task-dragging {
+  opacity: 0.5;
+  transform: rotate(2deg);
 }
 
 /* Media Queries for Responsive Typography */

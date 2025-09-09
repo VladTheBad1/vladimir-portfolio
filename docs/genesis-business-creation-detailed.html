@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genesis Business Creation - Detailed Technical Flow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+        
+        .diagram-section {
+            padding: 40px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .flow-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .flow-step {
+            flex: 1;
+            min-width: 200px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .flow-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .step-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .step-content {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+        
+        .arrow {
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: #667eea;
+            z-index: 1;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .highlight {
+            color: #ffd700;
+            font-weight: bold;
+        }
+        
+        .comment {
+            color: #75715e;
+            font-style: italic;
+        }
+        
+        .keyword {
+            color: #66d9ef;
+        }
+        
+        .string {
+            color: #a6e22e;
+        }
+        
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .tech-item {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .tech-item:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: scale(1.05);
+        }
+        
+        .tech-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .tech-purpose {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .magic-box {
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            border: 3px dashed #667eea;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .magic-title {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .magic-content {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .myth-reality {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .myth, .reality {
+            padding: 25px;
+            border-radius: 15px;
+        }
+        
+        .myth {
+            background: #ffe4e4;
+            border: 2px solid #ff6b6b;
+        }
+        
+        .reality {
+            background: #e4ffe4;
+            border: 2px solid #51cf66;
+        }
+        
+        .myth-title, .reality-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .myth-title {
+            color: #ff6b6b;
+        }
+        
+        .reality-title {
+            color: #51cf66;
+        }
+        
+        .list-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .list-item:last-child {
+            border-bottom: none;
+        }
+        
+        .check {
+            color: #51cf66;
+            font-size: 20px;
+        }
+        
+        .cross {
+            color: #ff6b6b;
+            font-size: 20px;
+        }
+        
+        .database-schema {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .table {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .table-name {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .field {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .field-name {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .field-type {
+            color: #666;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+        }
+        
+        .interactive-demo {
+            background: #f0f4ff;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .demo-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 10px;
+        }
+        
+        .demo-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .demo-output {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            min-height: 100px;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .timeline-left, .timeline-right {
+            width: 45%;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid #667eea;
+            border-radius: 50%;
+            z-index: 2;
+        }
+        
+        .revenue-flow {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .revenue-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .revenue-split {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+        }
+        
+        .split-box {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .split-percentage {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .split-label {
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .flow-container {
+                flex-direction: column;
+            }
+            
+            .arrow {
+                display: none;
+            }
+            
+            .myth-reality {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+            }
+            
+            .timeline-left, .timeline-right {
+                width: 100%;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-dot {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Genesis Business Creation Process</h1>
+            <p class="subtitle">How We Create a Fully Functional AI Business in 10 Minutes</p>
+        </div>
+
+        <!-- Myth vs Reality -->
+        <div class="diagram-section">
+            <h2 class="section-title">
+                <span class="icon">❌</span>
+                Myth vs Reality
+            </h2>
+            <div class="myth-reality">
+                <div class="myth">
+                    <div class="myth-title">❌ What People Think Happens</div>
+                    <div class="list-item">
+                        <span class="cross">✗</span>
+                        <span>We deploy a new server for each business</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="cross">✗</span>
+                        <span>We create a separate website from scratch</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="cross">✗</span>
+                        <span>We set up individual hosting accounts</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="cross">✗</span>
+                        <span>We configure unique databases</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="cross">✗</span>
+                        <span>We write custom code for each business</span>
+                    </div>
+                </div>
+                <div class="reality">
+                    <div class="reality-title">✅ What Actually Happens</div>
+                    <div class="list-item">
+                        <span class="check">✓</span>
+                        <span>ONE app serves ALL businesses</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="check">✓</span>
+                        <span>Subdomain routing to the same codebase</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="check">✓</span>
+                        <span>Database row determines business identity</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="check">✓</span>
+                        <span>Templates provide different features</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="check">✓</span>
+                        <span>Instant activation via database insert</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Magic Box -->
+        <div class="diagram-section">
+            <h2 class="section-title">
+                <span class="icon">✨</span>
+                The Secret Sauce
+            </h2>
+            <div class="magic-box">
+                <div class="magic-title">🎩 THE MAGIC TRICK REVEALED</div>
+                <div class="magic-content">
+                    <strong>There is NO separate deployment!</strong><br><br>
+                    When a user "creates" a business, we simply:<br>
+                    1. Insert a row in the database with their subdomain<br>
+                    2. The subdomain immediately works (wildcard DNS)<br>
+                    3. Our app checks the subdomain and shows their business<br>
+                    4. It looks like they have their own website<br>
+                    5. But it's just our app showing filtered data!<br><br>
+                    <strong>This is how Shopify, Substack, and every SaaS works!</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Flow -->
+        <div class="diagram-section">
+            <h2 class="section-title">
+                <span class="icon">⚙️</span>
+                Technical Flow (What Actually Happens)
+            </h2>
+            <div class="flow-container">
+                <div class="flow-step">
+                    <span class="step-number">1</span>
+                    <div class="step-title">User Applies</div>
+                    <div class="step-content">
+                        Fills form with email, name, and selects template (Resume/Social/Email)
+                    </div>
+                    <span class="arrow">→</span>
+                </div>
+                <div class="flow-step">
+                    <span class="step-number">2</span>
+                    <div class="step-title">Instant Approval</div>
+                    <div class="step-content">
+                        Email sent with setup link. User account created in Supabase Auth
+                    </div>
+                    <span class="arrow">→</span>
+                </div>
+                <div class="flow-step">
+                    <span class="step-number">3</span>
+                    <div class="step-title">Payment ($99)</div>
+                    <div class="step-content">
+                        Stripe Checkout for one-time setup fee. Creates Connect account for payouts
+                    </div>
+                    <span class="arrow">→</span>
+                </div>
+                <div class="flow-step">
+                    <span class="step-number">4</span>
+                    <div class="step-title">Choose Details</div>
+                    <div class="step-content">
+                        Business name, subdomain, colors, tagline. All stored in database
+                    </div>
+                    <span class="arrow">→</span>
+                </div>
+                <div class="flow-step">
+                    <span class="step-number">5</span>
+                    <div class="step-title">Instant Live!</div>
+                    <div class="step-content">
+                        Database insert = Business exists. Subdomain works immediately!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Examples -->
+        <div class="diagram-section">
+            <h2 class="section-title">
+                <span class="icon">💻</span>
+                The Code That Makes It Work
+            </h2>
+            
+            <h3 style="margin: 20px 0; color: #667eea;">1. Subdomain Routing (middleware.ts)</h3>
+            <div class="code-block">
+<span class="comment">// This runs on EVERY request to ANY subdomain</span>
+<span class="keyword">export function</span> <span class="highlight">middleware</span>(request) {
+  <span class="comment">// Get hostname (e.g., resume-pro.genesis-businesses.com)</span>
+  <span class="keyword">const</span> hostname = request.headers.get(<span class="string">'host'</span>)
+  
+  <span class="comment">// Check if it's a business subdomain</span>
+  <span class="keyword">if</span> (hostname?.includes(<span class="string">'genesis-businesses.com'</span>)) {
+    <span class="comment">// Extract subdomain (e.g., 'resume-pro')</span>
+    <span class="keyword">const</span> subdomain = hostname.split(<span class="string">'.'</span>)[0]
+    
+    <span class="comment">// <span class="highlight">MAGIC: Rewrite URL to our single app with subdomain param</span></span>
+    <span class="keyword">return</span> NextResponse.rewrite(
+      <span class="keyword">new</span> URL(<span class="string">`/business?subdomain=${subdomain}`</span>, request.url)
+    )
+  }
+}</div>
+            
+            <h3 style="margin: 20px 0; color: #667eea;">2. Business Creation (Just a Database Insert!)</h3>
+            <div class="code-block">
+<span class="keyword">async function</span> <span class="highlight">createBusiness</span>(userId, details) {
+  <span class="comment">// Step 1: Check subdomain availability</span>
+  <span class="keyword">const</span> subdomain = slugify(details.businessName)
+  
+  <span class="comment">// Step 2: Insert into database (THIS IS THE ENTIRE "DEPLOYMENT"!)</span>
+  <span class="keyword">const</span> business = <span class="keyword">await</span> supabase
+    .from(<span class="string">'businesses'</span>)
+    .insert({
+      franchisee_id: userId,
+      name: details.businessName,
+      subdomain: subdomain,
+      template: <span class="string">'resume-builder'</span>,
+      customization: {
+        color: details.brandColor,
+        tagline: details.tagline
+      },
+      status: <span class="string">'active'</span>
+    })
+  
+  <span class="comment">// Step 3: Business is LIVE! No deployment needed!</span>
+  <span class="comment">// resume-pro.genesis-businesses.com works immediately!</span>
+  <span class="keyword">return</span> {
+    success: <span class="keyword">true</span>,
+    url: <span class="string">`https://${subdomain}.genesis-businesses.com`</span>
+  }
+}</div>
+
+            <h3 style="margin: 20px 0; color: #667eea;">3. Displaying the Right Business</h3>
+            <div class="code-block">
+<span class="comment">// app/business/page.tsx - This single file serves ALL businesses!</span>
+<span class="keyword">export default async function</span> <span class="highlight">BusinessPage</span>() {
+  <span class="comment">// Get subdomain from URL</span>
+  <span class="keyword">const</span> subdomain = getSubdomain() <span class="comment">// e.g., 'resume-pro'</span>
+  
+  <span class="comment">// Fetch business data from database</span>
+  <span class="keyword">const</span> business = <span class="keyword">await</span> supabase
+    .from(<span class="string">'businesses'</span>)
+    .select(<span class="string">'*'</span>)
+    .eq(<span class="string">'subdomain'</span>, subdomain)
+    .single()
+  
+  <span class="comment">// Load the appropriate template</span>
+  <span class="keyword">const</span> Template = templates[business.template]
+  
+  <span class="comment">// Render with business customization</span>
+  <span class="keyword">return</span> (
+    &lt;Template
+      businessName={business.name}
+      brandColor={business.customization.color}
+      tagline={business.customization.tagline}
+    /&gt;
+  )
+}</div>
+        </div>
+
+        <!-- Database Schema -->
+        <div class="diagram-section">
+            <h2 class="section-title">
+                <span class="icon">🗄️</span>
+                Multi-Tenant Database Structure
+            </h2>
+            <div class="database-schema">
+                <div class="table">
+                    <div class="table-name">📊 businesses</div>
+                    <div class="field">
+                        <span class="field-name">id</span>
+                        <span class="field-type">UUID (primary key)</span>
+                    </div>
+                    <div class="field">
+                        <span class="field-name">franchisee_id</span>
+                        <span class="field-type">UUID (user reference)</span>
+                    </div>
+                    <div class="field">
+                        <span class="field-name">subdomain</span>
+                        <span class="field-type">TEXT (unique)</span>
+                    </div>
+                    <div class="field">
+                        <span class="field-name">name</span>
+                        <span class="field-type">TEXT</span>
+                    </div>
+                    <div class="field">
+                        <span class="field-name">template</span>
+                        <span class="field-type">TEXT (resume/social/email)</span>
+                    </div>
+                    <div class="field">
+                        <span class="field-name">customization</span>
+                        <span class="field-type">JSONB (colors, logo, etc)</span>
+                    </div>
+                    <div class="field">
+                        <span class="field-name">stripe_account_id</span>
+                        <span class="field-type">TEXT</span>
+                    </div>
+                </div>
+                
+                <div class="table">
+                    <div class="table-name">👥 customers</div>
+                    <div class="field">
+                        <span class="field-name">id</span>
+                        <span class="field-type">UUID</span>
+                    </div>
+                    <div class="field">
+                        <span class="field-name">business_id</span>
+                        <span class="field-type">UUID (which business)</span>
+                    </div>
+                    <div class="field">
+                        <span class="field-name">email</span>
+                        <span class="field-type">TEXT</span>
+                    </div>
+                    <div class="field">
+                        <span class="field-name">subscription_status</span>
+                        <span class="field-type">TEXT</span>
+                    </div>
+                </div>
+                
+                <div class="table">
+                    <div class="table-name">💰 transactions</div>
+                    <div class="field">
+                        <span class="field-name">id</span>
+                        <span class="field-type">UUID</span>
+                    </div>
+                    <div class="field">
+                        <span class="field-name">business_id</span>
+                        <span class="field-type">UUID (which business)</span>
+                    </div>
+                    <div class="field">
+                        <span class="field-name">amount</span>
+                        <span class="field-type">DECIMAL</span>
+                    </div>
+                    <div class="field">
+                        <span class="field-name">genesis_fee</span>
+                        <span class="field-type">DECIMAL (40%)</span>
+                    </div>
+                    <div class="field">
+                        <span class="field-name">franchisee_revenue</span>
+                        <span class="field-type">DECIMAL (60%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revenue Flow -->
+        <div class="diagram-section">
+            <div class="revenue-flow">
+                <div class="revenue-title">💰 Revenue Split Model</div>
+                <div class="revenue-split">
+                    <div class="split-box">
+                        <div class="split-percentage">60%</div>
+                        <div class="split-label">Franchisee Keeps</div>
+                    </div>
+                    <div style="font-size: 2em;">➕</div>
+                    <div class="split-box">
+                        <div class="split-percentage">40%</div>
+                        <div class="split-label">Genesis Platform</div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 20px; font-size: 1.1em;">
+                    <strong>Example:</strong> Customer pays $29/month → Franchisee gets $17.40 → Genesis gets $11.60
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Demo -->
+        <div class="diagram-section">
+            <h2 class="section-title">
+                <span class="icon">🎮</span>
+                Try It Yourself!
+            </h2>
+            <div class="interactive-demo">
+                <p style="margin-bottom: 20px;">Click to see what happens at each step:</p>
+                <button class="demo-button" onclick="showDemo('apply')">1. User Applies</button>
+                <button class="demo-button" onclick="showDemo('pay')">2. User Pays</button>
+                <button class="demo-button" onclick="showDemo('create')">3. Create Business</button>
+                <button class="demo-button" onclick="showDemo('visit')">4. Visit Business</button>
+                
+                <div id="demo-output" class="demo-output"></div>
+            </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="diagram-section">
+            <h2 class="section-title">
+                <span class="icon">🛠️</span>
+                Technology Stack
+            </h2>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <div class="tech-name">Next.js 14</div>
+                    <div class="tech-purpose">Single app for all businesses</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">Supabase</div>
+                    <div class="tech-purpose">Auth & PostgreSQL database</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">Stripe Connect</div>
+                    <div class="tech-purpose">Payments & revenue sharing</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">Vercel</div>
+                    <div class="tech-purpose">Hosting & edge functions</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">Cloudflare</div>
+                    <div class="tech-purpose">DNS & wildcard subdomains</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">GPT-4/Claude</div>
+                    <div class="tech-purpose">AI content generation</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="diagram-section">
+            <h2 class="section-title">
+                <span class="icon">⏱️</span>
+                10-Minute Business Launch Timeline
+            </h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-left">
+                        <strong>0:00 - 2:00</strong><br>
+                        User discovers Genesis, reads landing page
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-right" style="opacity: 0;"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-left" style="opacity: 0;"></div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-right">
+                        <strong>2:00 - 3:00</strong><br>
+                        Fills application form
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-left">
+                        <strong>3:00 - 3:30</strong><br>
+                        Receives approval email
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-right" style="opacity: 0;"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-left" style="opacity: 0;"></div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-right">
+                        <strong>3:30 - 7:00</strong><br>
+                        Completes payment & setup
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-left">
+                        <strong>7:00 - 9:00</strong><br>
+                        AI generates initial content
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-right" style="opacity: 0;"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-left" style="opacity: 0;"></div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-right">
+                        <strong>10:00</strong><br>
+                        🚀 Business is LIVE!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Insight -->
+        <div class="diagram-section">
+            <h2 class="section-title">
+                <span class="icon">💡</span>
+                The Key Insight
+            </h2>
+            <div class="magic-box" style="background: linear-gradient(135deg, #51cf6620, #a6e22e20); border-color: #51cf66;">
+                <div class="magic-title" style="color: #51cf66;">Why This Is Genius</div>
+                <div class="magic-content">
+                    <strong>Traditional Approach:</strong><br>
+                    • Deploy new server → 30 minutes<br>
+                    • Configure hosting → 20 minutes<br>
+                    • Set up database → 15 minutes<br>
+                    • Install software → 10 minutes<br>
+                    • Total: 75+ minutes of work<br><br>
+                    
+                    <strong>Genesis Approach:</strong><br>
+                    • Insert database row → 0.1 seconds<br>
+                    • Business is live → Instant<br>
+                    • Total: Less than 1 second!<br><br>
+                    
+                    <strong>Result:</strong> What looks like magic is just smart architecture!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showDemo(step) {
+            const output = document.getElementById('demo-output');
+            output.style.display = 'block';
+            
+            const demos = {
+                apply: `
+                    <strong>📝 User Application Received!</strong><br><br>
+                    <code>
+                    POST /api/apply<br>
+                    {<br>
+                    &nbsp;&nbsp;"email": "john@example.com",<br>
+                    &nbsp;&nbsp;"name": "John Doe",<br>
+                    &nbsp;&nbsp;"template": "resume-builder"<br>
+                    }<br><br>
+                    ✅ User account created in Supabase<br>
+                    ✅ Approval email sent<br>
+                    ✅ Stripe customer created
+                    </code>
+                `,
+                pay: `
+                    <strong>💳 Payment Processing</strong><br><br>
+                    <code>
+                    Stripe Checkout Session:<br>
+                    - Amount: $99.00<br>
+                    - Customer: john@example.com<br>
+                    - Product: Genesis Franchise Setup<br><br>
+                    ✅ Payment successful<br>
+                    ✅ Stripe Connect account created<br>
+                    ✅ Ready for business setup
+                    </code>
+                `,
+                create: `
+                    <strong>🏗️ Creating Business (The "Magic" Moment)</strong><br><br>
+                    <code>
+                    INSERT INTO businesses (<br>
+                    &nbsp;&nbsp;subdomain: 'johns-resumes',<br>
+                    &nbsp;&nbsp;name: 'Johns Professional Resumes',<br>
+                    &nbsp;&nbsp;template: 'resume-builder',<br>
+                    &nbsp;&nbsp;franchisee_id: 'user_123'<br>
+                    )<br><br>
+                    ⚡ Database insert completed in 0.087 seconds<br>
+                    ✅ Business is now LIVE!<br>
+                    🌐 URL: johns-resumes.genesis-businesses.com
+                    </code>
+                `,
+                visit: `
+                    <strong>🌐 Customer Visits Business</strong><br><br>
+                    <code>
+                    GET johns-resumes.genesis-businesses.com<br><br>
+                    1. Middleware detects subdomain: "johns-resumes"<br>
+                    2. Database query: SELECT * FROM businesses WHERE subdomain = 'johns-resumes'<br>
+                    3. Load template: resume-builder<br>
+                    4. Apply customization: John's colors & branding<br>
+                    5. Render page<br><br>
+                    ✅ Customer sees John's Resume Business!<br>
+                    ⏱️ Total time: 124ms
+                    </code>
+                `
+            };
+            
+            output.innerHTML = demos[step];
+        }
+    </script>
+</body>
+</html>
